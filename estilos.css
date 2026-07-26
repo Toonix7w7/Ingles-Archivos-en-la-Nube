@@ -1,0 +1,375 @@
+/* ==========================================
+   1. TIPOGRAFÍAS OFICIALES (Estilo 111 de Milo J)
+   ========================================== */
+/* 'Caveat' y 'Architects Daughter' simulan perfectamente el trazo a lapicero de la tracklist */
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   2. FONDO BEIGE MATE Y ESTILOS GLOBALES
+   ========================================== */
+body {
+    background-color: #e3dad1 !important; /* Tono beige exacto de la portada */
+    color: #0f224a !important;            /* Azul lapicero de la gráfica */
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin: 0;
+    padding: 2.5rem 1rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Selección en azul lapicero */
+::selection {
+    background: #0f224a;
+    color: #e3dad1;
+}
+
+/* ==========================================
+   3. ENCABEZADO "MILO J 111"
+   ========================================== */
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid #0f224a;
+    padding-bottom: 1.5rem;
+    position: relative;
+}
+
+/* Título principal con tipografía Serif Itálica como en la portada */
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 3.2rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 2px 2px 0px #0f224a, -1px -1px 0px #0f224a, 1px -1px 0px #0f224a, -1px 1px 0px #0f224a;
+    letter-spacing: -1px;
+    margin: 0;
+    text-transform: uppercase;
+}
+
+/* Marca "111" abajo a la derecha del encabezado */
+header::after {
+    content: "111";
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    color: #0f224a;
+    position: absolute;
+    bottom: -15px;
+    right: 10px;
+    background: #e3dad1;
+    padding: 0 8px;
+    font-weight: 700;
+}
+
+header nav {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+}
+
+header nav a {
+    font-family: 'Architects Daughter', cursive;
+    color: #0f224a;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+header nav a:hover {
+    border-bottom: 2px solid #0f224a;
+    transform: translateY(-1px);
+}
+
+/* ==========================================
+   4. TITULOS ESTILO TRACKLIST (MANUSCRITO)
+   ========================================== */
+.seccion-spa {
+    margin-bottom: 3.5rem;
+}
+
+h2 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.3rem;
+    color: #0f224a;
+    border-bottom: 2px solid #0f224a;
+    padding-bottom: 0.2rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    margin-top: 0;
+    color: #0f224a;
+}
+
+.card-info {
+    background: rgba(255, 255, 255, 0.4);
+    border: 1.5px solid #0f224a; /* Trazo en azul lapicero */
+    padding: 1.8rem;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    box-shadow: 3px 3px 0px #0f224a; /* Sombra sólida tipo ilustración */
+}
+
+/* ==========================================
+   5. FOTO GRUPAL E INTEGRANTES
+   ========================================== */
+.subtitulo-autores {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 0.95rem;
+    color: #0f224a;
+    margin-bottom: 1.2rem;
+}
+
+/* ==========================================
+   FOTO GRUPAL (AJUSTE Y RESPONSIVIDAD)
+   ========================================== */
+.contenedor-foto-grupal {
+    width: 100%;
+    max-width: 100%;       /* Asegura que no sobrepase el ancho de la tarjeta */
+    height: auto;          /* Permite que el alto se adapte proporcionalmente */
+    overflow: hidden;
+    border: 2px solid #0f224a;
+    border-radius: 4px;
+    margin-bottom: 1.5rem;
+    box-shadow: 4px 4px 0px #0f224a;
+    display: flex;          /* Centra la imagen si el contenedor es más amplio */
+    justify-content: center;
+    align-items: center;
+}
+
+.foto-grupal {
+    width: 100%;           /* Ocupa todo el ancho disponible */
+    height: auto;          /* Mantiene la relación de aspecto original (no se aplasta) */
+    max-height: 450px;     /* Límite máximo para que no ocupe toda la pantalla en monitores grandes */
+    object-fit: contain;   /* Muestra la imagen completa sin recortar ningún borde */
+    display: block;
+}
+.lista-integrantes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1.5px dashed #0f224a;
+}
+
+.integrante-item {
+    background: #ffffff;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid #0f224a;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 2px 2px 0px #0f224a;
+}
+
+.integrante-item h4 {
+    margin: 0 0 0.2rem 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.95rem;
+    color: #0f224a;
+    font-weight: 700;
+}
+
+.rol-autor {
+    font-family: 'Architects Daughter', cursive;
+    font-size: 0.85rem;
+    color: #0f224a;
+    font-weight: 700;
+}
+
+/* ==========================================
+   6. EDITOR Y ÁREA DE TRADUCCIÓN
+   ========================================== */
+.editor-contenedor {
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid #0f224a;
+    padding: 1.8rem;
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    box-shadow: 4px 4px 0px #0f224a;
+}
+
+.bloque-editor label {
+    font-family: 'Architects Daughter', cursive;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #0f224a;
+}
+
+textarea {
+    width: 100%;
+    height: 190px;
+    padding: 1rem;
+    border: 1.5px solid #0f224a;
+    border-radius: 4px;
+    font-family: 'Architects Daughter', cursive; /* Letra estilo manuscrito lapicero */
+    font-size: 1.05rem;
+    line-height: 1.5;
+    resize: vertical;
+    box-sizing: border-box;
+    background: #ffffff;
+    color: #0f224a;
+}
+
+textarea:focus {
+    outline: none;
+    border-width: 2px;
+    box-shadow: 2px 2px 0px #0f224a;
+}
+
+/* ==========================================
+   7. BOTONES (ESTILO AZUL LAPICERO Y BLANCO)
+   ========================================== */
+button, 
+#btn-procesar, 
+#btn-guardar-imagen {
+    background-color: #0f224a !important;
+    color: #ffffff !important;
+    border: 2px solid #0f224a;
+    padding: 0.8rem 1.6rem;
+    border-radius: 4px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 3px 3px 0px #ffffff;
+    transition: all 0.15s ease;
+}
+
+button:hover, 
+#btn-procesar:hover, 
+#btn-guardar-imagen:hover {
+    background-color: #ffffff !important;
+    color: #0f224a !important;
+    box-shadow: 3px 3px 0px #0f224a;
+    transform: translate(-1px, -1px);
+}
+
+.acciones-editor {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    justify-content: center;
+}
+
+/* ==========================================
+   8. TARJETA EXPORTABLE (FICHA DE TRADUCCIÓN)
+   ========================================== */
+.tarjeta-exportable {
+    background-color: #e3dad1;
+    border: 2px solid #0f224a;
+    border-radius: 4px;
+    padding: 2.5rem 2rem;
+    min-height: 200px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.5rem;
+    position: relative;
+    box-shadow: 4px 4px 0px #0f224a;
+}
+
+.tarjeta-exportable::after {
+    content: "111";
+    position: absolute;
+    bottom: 12px;
+    right: 18px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f224a;
+}
+
+#texto-espanol-contenido {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    color: #0f224a;
+    margin: 0;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* ==========================================
+   9. GLOSARIO MANUSCRITO
+   ========================================== */
+.glosario-scroll {
+    max-height: 420px;
+    overflow-y: auto;
+    border: 1.5px solid #0f224a;
+    border-radius: 4px;
+    padding: 1.2rem;
+    background: #ffffff;
+    margin-top: 1rem;
+    box-shadow: 3px 3px 0px #0f224a;
+}
+
+.glosario-scroll::-webkit-scrollbar {
+    width: 7px;
+}
+
+.glosario-scroll::-webkit-scrollbar-thumb {
+    background: #0f224a;
+    border-radius: 4px;
+}
+
+.glosario-lista {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 0.8rem 1.4rem;
+}
+
+.glosario-lista li {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    border-bottom: 1px dashed #0f224a;
+    padding-bottom: 0.4rem;
+    color: #0f224a;
+}
+
+.glosario-lista li b {
+    font-family: 'Architects Daughter', cursive;
+    color: #0f224a;
+    font-size: 1rem;
+}
+
+/* ==========================================
+   10. PIE DE PÁGINA
+   ========================================== */
+footer {
+    text-align: center;
+    margin-top: 4rem;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: #0f224a;
+    border-top: 1.5px solid #0f224a;
+    padding-top: 1.5rem;
+}
+
+/* Responsivo para celulares */
+@media (max-width: 600px) {
+    body {
+        padding: 1rem;
+    }
+    header h1 {
+        font-size: 2.2rem;
+    }
+    .areas-edicion {
+        flex-direction: column;
+    }
+}
