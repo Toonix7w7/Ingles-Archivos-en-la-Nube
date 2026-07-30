@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cloud Files - Single Page</title>
+    <title>My Cloud Files - Cyberpunk Edition</title>
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
@@ -11,47 +11,52 @@
     <header>
         <h1>My Cloud Files</h1>
         <nav>
-            <a href="#home">Home</a>
-            <a href="#about">About Us</a>
-            <a href="#repository">Repository</a>
+            <a href="#home" onclick="mostrarSeccion('home')">Home</a>
+            <a href="#about" onclick="mostrarSeccion('about')">About Us</a>
+            <a href="#repository" onclick="mostrarSeccion('repository')">Repository</a>
+            <a href="#recursos" onclick="mostrarSeccion('recursos')">Media Resources</a>
+            <a href="#glosario" onclick="mostrarSeccion('glosario')">Glossary</a>
         </nav>
     </header>
 
     <main>
         <!-- SECCIÓN 1: HOME -->
-        <div class="card-info">
-    <h3>Equipo de Trabajo y Autores</h3>
-    <p class="subtitulo-autores">Estudiantes de Ingeniería y Sistemas Digitales — Inglés 2</p>
+        <section id="home" class="seccion-spa">
+            <h2>// HOME_PANEL</h2>
+            <div class="card-info">
+                <h3>Equipo de Trabajo y Autores</h3>
+                <p class="subtitulo-autores">Estudiantes de Ingeniería y Sistemas Digitales — Inglés 2</p>
 
-    <!-- Foto Grupal del Equipo -->
-    <div class="contenedor-foto-grupal">
-        <img src="uploads/equipo-grupal.jpg" alt="Foto del Grupo" class="foto-grupal" onerror="this.src='https://via.placeholder.com/800x400?text=Foto+Grupal+del+Equipo'">
-    </div>
+                <!-- Foto Grupal del Equipo -->
+                <div class="contenedor-foto-grupal">
+                    <img src="uploads/equipo-grupal.jpg" alt="Foto del Grupo" class="foto-grupal" onerror="this.src='https://via.placeholder.com/800x400?text=Foto+Grupal+del+Equipo'">
+                </div>
 
-    <!-- Información de los Integrantes -->
-    <div class="lista-integrantes">
-        <div class="integrante-item">
-            <h4>Santiago Sánchez</h4>
-            <span class="rol-autor">Líder & Desarrollo Web</span>
-        </div>
-        <div class="integrante-item">
-            <h4>Ariel Condo</h4>
-            <span class="rol-autor">Documentación & Traducción</span>
-        </div>
-        <div class="integrante-item">
-            <h4>Jimmy Vedia</h4>
-            <span class="rol-autor">Investigación Cloud Storage</span>
-        </div>
-        <div class="integrante-item">
-            <h4>Nicolás Miranda</h4>
-            <span class="rol-autor">Diseño UI & Glosario</span>
-        </div>
-    </div>
-</div>
+                <!-- Información de los Integrantes -->
+                <div class="lista-integrantes">
+                    <div class="integrante-item">
+                        <h4>Santiago Sánchez</h4>
+                        <span class="rol-autor">Líder & Desarrollo Web</span>
+                    </div>
+                    <div class="integrante-item">
+                        <h4>Ariel Condo</h4>
+                        <span class="rol-autor">Documentación & Traducción</span>
+                    </div>
+                    <div class="integrante-item">
+                        <h4>Jimmy Vedia</h4>
+                        <span class="rol-autor">Investigación Cloud Storage</span>
+                    </div>
+                    <div class="integrante-item">
+                        <h4>Nicolás Miranda</h4>
+                        <span class="rol-autor">Diseño UI & Glosario</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- SECCIÓN 2: ABOUT US -->
-        <section id="about" class="seccion-spa">
-            <h2>About Us</h2>
+        <section id="about" class="seccion-spa" style="display: none;">
+            <h2>// ABOUT_US</h2>
             <div class="card-info">
                 <h3>¿Qué es el Almacenamiento en la Nube?</h3>
                 <p>Es un modelo de servicio donde los datos se transmiten y almacenan en sistemas de almacenamiento remotos.</p>
@@ -62,282 +67,320 @@
             </div>
             <div class="card-info">
                 <h3>Alineación con ODS</h3>
-                <p>Contribución a la educación de calidad e innovación tecnológica.</p>
+                <p>ODS 8: Trabajo decente y crecimiento económico
+                Promueve el desarrollo de habilidades digitales que mejoran las oportunidades de empleo. El almacenamiento en la nube y el aprendizaje del inglés fortalecen las competencias laborales.
+                ODS 9: Industria, innovación e infraestructura
+                Impulsa el uso de tecnologías innovadoras. El almacenamiento en la nube facilita el acceso, la gestión y el intercambio de información desde cualquier lugar.
+                ODS 10: Reducción de las desigualdades
+                Favorece el acceso a herramientas educativas y tecnológicas para más personas, permitiendo aprender inglés sin importar la ubicación o los recursos disponibles.
+                ODS 17: Alianzas para lograr los objetivos
+                Promueve la colaboración mediante plataformas en la nube, facilitando el trabajo en equipo, el intercambio de materiales y el aprendizaje conjunto del inglés.</p>
             </div>
         </section>
 
         <!-- SECCIÓN 3: REPOSITORY & EDITOR -->
-        <section id="repository" class="seccion-spa">
-            <h2>Repository</h2>
+        <section id="repository" class="seccion-spa" style="display: none;">
+            <h2>// REPOSITORY_HUB</h2>
 
             <div class="editor-contenedor">
-                <h3>Centro de Traducción e Interpretación (Inglés 2)</h3>
+                <h3>Centro de Almacenamiento y Traducción</h3>
                 
+                <!-- Formulario para Subir / Guardar Archivo -->
                 <form id="form-upload">
-                    <input type="file" id="archivo-input" accept=".txt, .pdf, .png, .jpg, .jpeg">
-                    <button type="submit">Cargar Recurso</button>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; width: 100%;">
+                        <input type="file" id="archivo-input" accept=".txt, .pdf, .png, .jpg, .jpeg" required>
+                        <button type="submit" id="btn-guardar-archivo">📁 Guardar en Repositorio</button>
+                    </div>
                 </form>
 
                 <!-- Vista previa para Imágenes o PDFs -->
                 <div id="vista-previa" class="vista-previa-box" style="display: none;"></div>
 
-                <!-- Áreas de trabajo y traducción del equipo -->
-                <div id="contenedor-texto" class="areas-edicion" style="display: none;">
+                <!-- Áreas de trabajo y traducción por API Bidireccional -->
+                <div id="contenedor-texto" class="areas-edicion">
                     <div class="bloque-editor">
-                        <label for="texto-ingles">Original Resource (English):</label>
-                        <textarea id="texto-ingles" placeholder="Texto en inglés cargado..."></textarea>
+                        <label for="texto-ingles" id="label-origen">Resource Text (English / Español):</label>
+                        <textarea id="texto-ingles" placeholder="Escribe o pega aquí el texto en inglés o español..."></textarea>
+                        
+                        <!-- Botones de control para la API -->
+                        <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.8rem; flex-wrap: wrap;">
+                            <button id="btn-traducir-api" type="button" class="btn-secundario">
+                                🤖 Traducir (EN ➔ ES)
+                            </button>
+                            <button id="btn-switch-idioma" type="button" class="btn-secundario btn-toggle">
+                                🔄 Cambiar Dirección
+                            </button>
+                        </div>
                     </div>
 
                     <div class="bloque-editor">
-                        <label for="texto-espanol">Traducción del Equipo (Español):</label>
-                        <textarea id="texto-espanol" placeholder="Escriban aquí la traducción redactada por el equipo..."></textarea>
+                        <label for="texto-espanol" id="label-destino">Traducción Resultado (Revisión antes de publicar):</label>
+                        <textarea id="texto-espanol" placeholder="Aquí aparecerá el borrador traducido para revisión antes de publicar..."></textarea>
                     </div>
                 </div>
 
-                <!-- Tarjeta que se genera con la estética de 111 de Milo J -->
-                <div id="card-traduccion" class="tarjeta-exportable" style="display: none;">
-                    <p id="texto-espanol-contenido"></p>
+                <!-- Tarjeta que se genera con la estética exportable -->
+                <div id="card-traduccion" class="tarjeta-exportable" style="display: block;">
+                    <p id="texto-espanol-contenido">Escribe o procesa tu traducción para visualizar la tarjeta aquí...</p>
                 </div>
 
                 <div class="acciones-editor">
-                    <button id="btn-procesar" type="button" style="display: none;">Publicar Traducción</button>
-                    <button id="btn-guardar-imagen" type="button" style="display: none;">Exportar como Imagen (111 Style)</button>
+                    <button id="btn-procesar" type="button">Publicar Traducción</button>
+                    <button id="btn-guardar-imagen" type="button">Exportar como Imagen</button>
+                </div>
+
+                <!-- LISTA DE ARCHIVOS GUARDADOS EN EL REPOSITORIO -->
+                <div class="card-info" style="margin-top: 2.5rem; padding: 1.5rem; background: var(--beige-claro);">
+                    <h4 style="color: var(--verde-bosque); margin-bottom: 1rem;">📂 Archivos Guardados en Repositorio</h4>
+                    <div id="lista-archivos-guardados">
+                        <p style="color: var(--texto-secundario); font-size: 0.9rem;">No hay archivos guardados aún.</p>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="card-info glosario-box">
-    <h3>Glosario de Términos Técnicos y Cloud Storage (200 Palabras)</h3>
-    <p>Lista de vocabulario técnico fundamental para la documentación y lectura de recursos en inglés.</p>
-    
-    <div class="glosario-scroll">
-        <ul class="glosario-lista">
-            <!-- Conceptos Fundamentales de Almacenamiento -->
-            <li><b>Cloud Storage:</b> Almacenamiento en la nube.</li>
-            <li><b>Storage:</b> Almacenamiento / Guardado de datos.</li>
-            <li><b>Backup:</b> Copia de seguridad.</li>
-            <li><b>Data:</b> Datos / Información procesada.</li>
-            <li><b>Database:</b> Base de datos.</li>
-            <li><b>File:</b> Archivo / Documento.</li>
-            <li><b>Folder / Directory:</b> Carpeta / Directorio.</li>
-            <li><b>Upload:</b> Subir o cargar un archivo a un servidor.</li>
-            <li><b>Download:</b> Descargar o bajar un archivo localmente.</li>
-            <li><b>Sync / Synchronization:</b> Sincronización de archivos en tiempo real.</li>
-            <li><b>Server:</b> Servidor de procesamiento y almacenamiento.</li>
-            <li><b>Client:</b> Cliente o dispositivo que solicita información.</li>
-            <li><b>Remote Access:</b> Acceso remoto a recursos.</li>
-            <li><b>Host:</b> Anfitrión o equipo que aloja servicios.</li>
-            <li><b>Hosting:</b> Alojamiento web o de archivos.</li>
-
-            <!-- Redes e Infraestructura -->
-            <li><b>Network:</b> Red de computadoras.</li>
-            <li><b>Bandwidth:</b> Ancho de banda de transferencia.</li>
-            <li><b>Latency:</b> Latencia o tiempo de respuesta.</li>
-            <li><b>Throughput:</b> Rendimiento o velocidad de procesamiento efectivo.</li>
-            <li><b>IP Address:</b> Dirección IP de un dispositivo en la red.</li>
-            <li><b>DNS (Domain Name System):</b> Sistema de Nombres de Dominio.</li>
-            <li><b>Protocol:</b> Protocolo de comunicación.</li>
-            <li><b>HTTP / HTTPS:</b> Protocolos de transferencia de hipertexto (seguro).</li>
-            <li><b>FTP (File Transfer Protocol):</b> Protocolo de transferencia de archivos.</li>
-            <li><b>Endpoint:</b> Punto de extremo o nodo de conexión.</li>
-            <li><b>Gateway:</b> Puerta de enlace de red.</li>
-            <li><b>Router:</b> Enrutador de datos.</li>
-            <li><b>Firewall:</b> Cortafuegos o barrera de seguridad de red.</li>
-            <li><b>Proxy:</b> Servidor intermediario.</li>
-            <li><b>VPN (Virtual Private Network):</b> Red privada virtual.</li>
-
-            <!-- Seguridad, Cifrado y Control de Acceso -->
-            <li><b>Encryption:</b> Cifrado / Encriptación de datos.</li>
-            <li><b>Decryption:</b> Descifrado de información.</li>
-            <li><b>Ciphertext:</b> Texto cifrado no legible.</li>
-            <li><b>Plaintext:</b> Texto plano o sin cifrar.</li>
-            <li><b>Authentication:</b> Autenticación de identidad.</li>
-            <li><b>Authorization:</b> Permiso o autorización de acceso.</li>
-            <li><b>Credentials:</b> Credenciales de acceso (usuario y clave).</li>
-            <li><b>Access Control:</b> Control de acceso a recursos.</li>
-            <li><b>Permission:</b> Permiso de lectura o escritura.</li>
-            <li><b>Token:</b> Ficha o clave temporal de autenticación.</li>
-            <li><b>Session:</b> Sesión activa de usuario.</li>
-            <li><b>Multi-Factor Authentication (MFA):</b> Autenticación de múltiple factor.</li>
-            <li><b>Password:</b> Contraseña de seguridad.</li>
-            <li><b>Hash:</b> Algoritmo de verificación de integridad.</li>
-            <li><b>Key:</b> Llave criptográfica.</li>
-
-            <!-- Arquitectura de Software y Nube -->
-            <li><b>SaaS (Software as a Service):</b> Software como servicio.</li>
-            <li><b>PaaS (Platform as a Service):</b> Plataforma como servicio.</li>
-            <li><b>IaaS (Infrastructure as a Service):</b> Infraestructura como servicio.</li>
-            <li><b>Public Cloud:</b> Nube pública.</li>
-            <li><b>Private Cloud:</b> Nube privada.</li>
-            <li><b>Hybrid Cloud:</b> Nube híbrida.</li>
-            <li><b>Multi-cloud:</b> Estrategia de múltiples proveedores de nube.</li>
-            <li><b>API (Application Programming Interface):</b> Interfaz de programación de aplicaciones.</li>
-            <li><b>REST API:</b> Arquitectura para servicios web ligeros.</li>
-            <li><b>Middleware:</b> Software intermediario entre sistemas.</li>
-            <li><b>Microservices:</b> Arquitectura basada en microservicios independientes.</li>
-            <li><b>Container:</b> Contenedor de aplicaciones (ej. Docker).</li>
-            <li><b>Kubernetes:</b> Orquestador de contenedores en la nube.</li>
-            <li><b>Virtual Machine (VM):</b> Máquina virtual.</li>
-            <li><b>Hypervisor:</b> Software gestor de máquinas virtuales.</li>
-
-            <!-- Gestión de Datos y Operaciones -->
-            <li><b>Data Center:</b> Centro de procesamiento de datos.</li>
-            <li><b>Redundancy:</b> Redundancia de almacenamiento para prevención de fallos.</li>
-            <li><b>Replication:</b> Replicación de datos en varios servidores.</li>
-            <li><b>Disaster Recovery:</b> Plan de recuperación ante desastres.</li>
-            <li><b>Failover:</b> Conmutación por error a un sistema de respaldo.</li>
-            <li><b>Availability:</b> Disponibilidad del servicio.</li>
-            <li><b>Uptime:</b> Tiempo de actividad o funcionamiento continuo.</li>
-            <li><b>Downtime:</b> Tiempo de inactividad o caída del servicio.</li>
-            <li><b>Scalability:</b> Escalabilidad o capacidad de crecimiento del sistema.</li>
-            <li><b>Load Balancing:</b> Balanceo de carga de tráfico en servidores.</li>
-            <li><b>Migration:</b> Migración de datos entre plataformas.</li>
-            <li><b>Archiving:</b> Archivo a largo plazo de datos poco usados.</li>
-            <li><b>Cold Storage:</b> Almacenamiento en frío para respaldos raramente consultados.</li>
-            <li><b>Hot Storage:</b> Almacenamiento de alto rendimiento de acceso frecuente.</li>
-            <li><b>Blob (Binary Large Object):</b> Objeto binario grande no estructurado.</li>
-
-            <!-- Desarrollo, Código y Formatos de Archivo -->
-            <li><b>Source Code:</b> Código fuente.</li>
-            <li><b>Framework:</b> Marco de trabajo de software.</li>
-            <li><b>Library:</b> Librería de código reusable.</li>
-            <li><b>Repository:</b> Repositorio de código o documentos.</li>
-            <li><b>Branch:</b> Rama de desarrollo en sistemas de control de versiones.</li>
-            <li><b>Commit:</b> Confirmación de cambios en código.</li>
-            <li><b>Merge:</b> Fusión de código de distintas ramas.</li>
-            <li><b>Pull Request:</b> Solicitud de integración de código.</li>
-            <li><b>Deploy / Deployment:</b> Despliegue de aplicaciones en producción.</li>
-            <li><b>Bug:</b> Error o fallo en el software.</li>
-            <li><b>Debug:</b> Depuración o corrección de errores.</li>
-            <li><b>Patch:</b> Parche o actualización de software.</li>
-            <li><b>Release:</b> Lanzamiento de una nueva versión.</li>
-            <li><b>JSON (JavaScript Object Notation):</b> Formato ligero de intercambio de datos.</li>
-            <li><b>XML:</b> Lenguaje de marcado extensible para estructurar datos.</li>
-
-            <!-- Redes, Rendimiento y Caché -->
-            <li><b>Cache:</b> Memoria caché para acceso ultrarrápido.</li>
-            <li><b>CDN (Content Delivery Network):</b> Red de distribución de contenido geográfico.</li>
-            <li><b>Node:</b> Nodo o punto de conexión dentro de un sistema distribuido.</li>
-            <li><b>Traffic:</b> Tráfico de red o flujo de datos.</li>
-            <li><b>Request:</b> Petición de datos enviada por un cliente.</li>
-            <li><b>Response:</b> Respuesta devuelta por el servidor.</li>
-            <li><b>Header:</b> Encabezado con metadatos de la petición o archivo.</li>
-            <li><b>Payload:</b> Carga útil o datos reales transmitidos.</li>
-            <li><b>Timeout:</b> Tiempo límite de espera agotado.</li>
-            <li><b>Socket:</b> Punto final para comunicación bidireccional en tiempo real.</li>
-            <li><b>WebSockets:</b> Protocolo para comunicación cliente-servidor persistente.</li>
-            <li><b>Port:</b> Puerto de comunicación lógico de red.</li>
-            <li><b>DNS Lookup:</b> Búsqueda y resolución de direcciones DNS.</li>
-            <li><b>Ping:</b> Diagnóstico de tiempo de respuesta de red.</li>
-            <li><b>Packet:</b> Paquete de datos transmitido en red.</li>
-
-            <!-- Conceptos Adicionales de Tecnología y Análisis -->
-            <li><b>Big Data:</b> Análisis de grandes volúmenes de datos.</li>
-            <li><b>Data Mining:</b> Minería y extracción de patrones de datos.</li>
-            <li><b>Data Analytics:</b> Análisis y procesamiento estadístico de datos.</li>
-            <li><b>Machine Learning:</b> Aprendizaje automático orientado a datos.</li>
-            <li><b>Artificial Intelligence (AI):</b> Inteligencia Artificial.</li>
-            <li><b>Algorithm:</b> Algoritmo de procesamiento paso a paso.</li>
-            <li><b>Metadata:</b> Datos que describen otros datos (fecha, tamaño, tipo).</li>
-            <li><b>Log File:</b> Archivo de registro de eventos del sistema.</li>
-            <li><b>Audit Trail:</b> Pista o registro de auditoría de seguridad.</li>
-            <li><b>Compliance:</b> Cumplimiento normativo y legal de manejo de datos.</li>
-            <li><b>GDPR:</b> Reglamento general de protección de datos.</li>
-            <li><b>Privacy:</b> Privacidad y protección de información sensible.</li>
-            <li><b>Leak:</b> Filtración no autorizada de información.</li>
-            <li><b>Breach:</b> Brecha de seguridad en la infraestructura.</li>
-            <li><b>Vulnerability:</b> Vulnerabilidad o debilidad de un sistema.</li>
-
-            <!-- Mantenimiento y Monitoreo -->
-            <li><b>Monitoring:</b> Monitoreo en tiempo real del estado del sistema.</li>
-            <li><b>Alert:</b> Alerta o notificación de evento crítico.</li>
-            <li><b>Threshold:</b> Umbral o límite configurado.</li>
-            <li><b>Quota:</b> Cuota o límite asignado de almacenamiento.</li>
-            <li><b>Compression:</b> Compresión de archivos para reducir tamaño.</li>
-            <li><b>Decompression:</b> Descompresión de archivos comprimidos.</li>
-            <li><b>Zip / Tar:</b> Formatos populares de empaquetado de archivos.</li>
-            <li><b>Checksum:</b> Suma de comprobación para verificar la integridad del archivo.</li>
-            <li><b>Corruption:</b> Corrupción de datos por error de escritura.</li>
-            <li><b>Recovery:</b> Recuperación de archivos o estados del sistema.</li>
-            <li><b>Restore:</b> Restauración de una copia de seguridad.</li>
-            <li><b>Storage Pool:</b> Agrupación lógica de discos de almacenamiento.</li>
-            <li><b>Volume:</b> Volumen de disco formateado.</li>
-            <li><b>Partition:</b> Partición lógica de un almacenamiento físico.</li>
-            <li><b>Format:</b> Formateo e inicialización de unidades.</li>
-
-            <!-- Interacción de Usuario y Web -->
-            <li><b>User Interface (UI):</b> Interfaz gráfica de usuario.</li>
-            <li><b>User Experience (UX):</b> Experiencia del usuario en la navegación.</li>
-            <li><b>Frontend:</b> Capa visual y de interacción con el usuario.</li>
-            <li><b>Backend:</b> Capa lógica y servidor detrás de la interfaz.</li>
-            <li><b>Full Stack:</b> Desarrollo integral de Frontend y Backend.</li>
-            <li><b>Database Admin (DBA):</b> Administrador de bases de datos.</li>
-            <li><b>DevOps:</b> Filosofía de integración entre desarrollo y operaciones.</li>
-            <li><b>System Administrator (SysAdmin):</b> Administrador de sistemas informáticos.</li>
-            <li><b>User Session:</b> Período de actividad de un usuario.</li>
-            <li><b>Dashboard:</b> Panel de control con métricas clave.</li>
-            <li><b>Widget:</b> Componente de interfaz de usuario de función específica.</li>
-            <li><b>Callback:</b> Función ejecutada al completar una tarea asíncrona.</li>
-            <li><b>Async / Await:</b> Programación asíncrona no bloqueante.</li>
-            <li><b>Promise:</b> Objeto que representa un valor que estará disponible a futuro.</li>
-            <li><b>Event Handler:</b> Manejador o controlador de eventos.</li>
-
-            <!-- Almacenamiento Avanzado y Estructuras -->
-            <li><b>SAN (Storage Area Network):</b> Red de área de almacenamiento dedicada.</li>
-            <li><b>NAS (Network Attached Storage):</b> Almacenamiento conectado a la red local.</li>
-            <li><b>RAID:</b> Matriz redundante de discos independientes.</li>
-            <li><b>Object Storage:</b> Almacenamiento de datos estructurados como objetos.</li>
-            <li><b>Block Storage:</b> Almacenamiento por bloques de alto rendimiento.</li>
-            <li><b>File Storage:</b> Almacenamiento jerárquico clásico por archivos.</li>
-            <li><b>I/O Operations:</b> Operaciones de entrada/salida de lectura y escritura.</li>
-            <li><b>IOPS:</b> Operaciones de entrada/salida por segundo.</li>
-            <li><b>Read-Only:</b> Modo de solo lectura sin permisos de modificación.</li>
-            <li><b>Write-Only:</b> Modo de solo escritura.</li>
-            <li><b>Read/Write (R/W):</b> Permisos completos de lectura y escritura.</li>
-            <li><b>Ownership:</b> Propiedad o titularidad de un archivo o directorio.</li>
-            <li><b>File System (FS):</b> Sistema de archivos (NTFS, EXT4, FAT32).</li>
-            <li><b>Mount Point:</b> Punto de montaje de disco en el sistema.</li>
-            <li><b>Zero-Knowledge Encryption:</b> Cifrado donde el proveedor no conoce la clave.</li>
-
-            <!-- Términos de Trabajo Colaborativo y Proyecto -->
-            <li><b>Sharing:</b> Compartir recursos con otros usuarios.</li>
-            <li><b>Collaboration:</b> Trabajo colaborativo simultáneo.</li>
-            <li><b>Version Control:</b> Control de versiones de un archivo.</li>
-            <li><b>Conflict:</b> Conflicto por ediciones simultáneas no sincronizadas.</li>
-            <li><b>Lock:</b> Bloqueo de archivo para evitar edición concurrente.</li>
-            <li><b>Sync Conflict:</b> Conflicto de sincronización.</li>
-            <li><b>Trash / Recycling Bin:</b> Papelera de reciclaje o elementos eliminados.</li>
-            <li><b>Retention Policy:</b> Política de retención de archivos eliminados.</li>
-            <li><b>Purge:</b> Borrado definitivo e irrecuperable de archivos.</li>
-            <li><b>Quarantine:</b> Aislamiento de archivos infectados por malware.</li>
-            <li><b>Malware:</b> Software malicioso o dañino.</li>
-            <li><b>Antivirus / Scanner:</b> Escáner de seguridad y amenazas en archivos.</li>
-            <li><b>Phishing:</b> Suplantación de identidad para robo de datos.</li>
-            <li><b>Ransomware:</b> Secuestro de datos mediante cifrado no autorizado.</li>
-            <li><b>Zero-Day:</b> Vulnerabilidad no descubierta o sin solución inmediata.</li>
-
-            <!-- Métricas y Facturación en la Nube -->
-            <li><b>Pay-as-you-go:</b> Modelo de pago por consumo exacto.</li>
-            <li><b>Subscription:</b> Modelo de suscripción periódica.</li>
-            <li><b>Tier:</b> Nivel de servicio o capa de rendimiento.</li>
-            <li><b>Free Tier:</b> Capa de uso gratuito de la nube.</li>
-            <li><b>Provisioning:</b> Asignación de recursos de almacenamiento/cómputo.</li>
-            <li><b>Deprovisioning:</b> Liberación de recursos en desuso.</li>
-            <li><b>SLA (Service Level Agreement):</b> Acuerdo de nivel de servicio garantizado.</li>
-            <li><b>Benchmark:</b> Prueba de rendimiento comparativa del sistema.</li>
-            <li><b>Overhead:</b> Sobrecarga de procesamiento o almacenamiento consumido.</li>
-            <li><b>Workload:</b> Carga de trabajo asignada a un servidor.</li>
-            <li><b>Cluster:</b> Grupo de servidores interconectados trabajando juntos.</li>
-            <li><b>Grid Computing:</b> Computación distribuida en red.</li>
-            <li><b>Edge Computing:</b> Procesamiento de datos cerca de la fuente de origen.</li>
-            <li><b>Fog Computing:</b> Extensión intermedia entre la nube y los dispositivos.</li>
-            <li><b>Serverless:</b> Arquitectura sin gestión directa de servidores físicos.</li>
-        </ul>
-    </div>
-</div>
+        <!-- SECCIÓN 4: RECURSOS AUDIOVISUALES (EXCLUSIVA) -->
+        <section id="recursos" class="seccion-spa" style="display: none;">
+            <h2>// MEDIA_RESOURCES</h2>
 
             <div class="card-info">
                 <h3>Tutoriales y Videos</h3>
-                <p>Recursos multimedia interactivos enfocados en cloud storage.</p>
+                <p>Recursos multimedia interactivos enfocados en almacenamiento en la nube y arquitectura cloud.</p>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: GLOSARIO DE TÉRMINOS TÉCNICOS (EXCLUSIVA) -->
+        <section id="glosario" class="seccion-spa" style="display: none;">
+            <h2>// GLOSSARY</h2>
+
+            <div class="card-info">
+                <h3>Glosario de Términos Técnicos y Cloud Storage</h3>
+                <p>Lista de vocabulario técnico fundamental para la documentación y lectura de recursos en inglés.</p>
+                
+                <div class="glosario-scroll">
+                    <ul class="glosario-lista">
+                        <!-- Conceptos Fundamentales de Almacenamiento -->
+                        <li><b>Cloud Storage:</b> Almacenamiento en la nube.</li>
+                        <li><b>Storage:</b> Almacenamiento / Guardado de datos.</li>
+                        <li><b>Backup:</b> Copia de seguridad.</li>
+                        <li><b>Data:</b> Datos / Información procesada.</li>
+                        <li><b>Database:</b> Base de datos.</li>
+                        <li><b>File:</b> Archivo / Documento.</li>
+                        <li><b>Folder / Directory:</b> Carpeta / Directorio.</li>
+                        <li><b>Upload:</b> Subir o cargar un archivo a un servidor.</li>
+                        <li><b>Download:</b> Descargar o bajar un archivo localmente.</li>
+                        <li><b>Sync / Synchronization:</b> Sincronización de archivos en tiempo real.</li>
+                        <li><b>Server:</b> Servidor de procesamiento y almacenamiento.</li>
+                        <li><b>Client:</b> Cliente o dispositivo que solicita información.</li>
+                        <li><b>Remote Access:</b> Acceso remoto a recursos.</li>
+                        <li><b>Host:</b> Anfitrión o equipo que aloja servicios.</li>
+                        <li><b>Hosting:</b> Alojamiento web o de archivos.</li>
+
+                        <!-- Redes e Infraestructura -->
+                        <li><b>Network:</b> Red de computadoras.</li>
+                        <li><b>Bandwidth:</b> Ancho de banda de transferencia.</li>
+                        <li><b>Latency:</b> Latencia o tiempo de respuesta.</li>
+                        <li><b>Throughput:</b> Rendimiento o velocidad de procesamiento efectivo.</li>
+                        <li><b>IP Address:</b> Dirección IP de un dispositivo en la red.</li>
+                        <li><b>DNS (Domain Name System):</b> Sistema de Nombres de Dominio.</li>
+                        <li><b>Protocol:</b> Protocolo de comunicación.</li>
+                        <li><b>HTTP / HTTPS:</b> Protocolos de transferencia de hipertexto (seguro).</li>
+                        <li><b>FTP (File Transfer Protocol):</b> Protocolo de transferencia de archivos.</li>
+                        <li><b>Endpoint:</b> Punto de extremo o nodo de conexión.</li>
+                        <li><b>Gateway:</b> Puerta de enlace de red.</li>
+                        <li><b>Router:</b> Enrutador de datos.</li>
+                        <li><b>Firewall:</b> Cortafuegos o barrera de seguridad de red.</li>
+                        <li><b>Proxy:</b> Servidor intermediario.</li>
+                        <li><b>VPN (Virtual Private Network):</b> Red privada virtual.</li>
+
+                        <!-- Seguridad, Cifrado y Control de Acceso -->
+                        <li><b>Encryption:</b> Cifrado / Encriptación de datos.</li>
+                        <li><b>Decryption:</b> Descifrado de información.</li>
+                        <li><b>Ciphertext:</b> Texto cifrado no legible.</li>
+                        <li><b>Plaintext:</b> Texto plano o sin cifrar.</li>
+                        <li><b>Authentication:</b> Autenticación de identidad.</li>
+                        <li><b>Authorization:</b> Permiso o autorización de acceso.</li>
+                        <li><b>Credentials:</b> Credenciales de acceso (usuario y clave).</li>
+                        <li><b>Access Control:</b> Control de acceso a recursos.</li>
+                        <li><b>Permission:</b> Permiso de lectura o escritura.</li>
+                        <li><b>Token:</b> Ficha o clave temporal de autenticación.</li>
+                        <li><b>Session:</b> Sesión activa de usuario.</li>
+                        <li><b>Multi-Factor Authentication (MFA):</b> Autenticación de múltiple factor.</li>
+                        <li><b>Password:</b> Contraseña de seguridad.</li>
+                        <li><b>Hash:</b> Algoritmo de verificación de integridad.</li>
+                        <li><b>Key:</b> Llave criptográfica.</li>
+
+                        <!-- Arquitectura de Software y Nube -->
+                        <li><b>SaaS (Software as a Service):</b> Software como servicio.</li>
+                        <li><b>PaaS (Platform as a Service):</b> Plataforma como servicio.</li>
+                        <li><b>IaaS (Infrastructure as a Service):</b> Infraestructura como servicio.</li>
+                        <li><b>Public Cloud:</b> Nube pública.</li>
+                        <li><b>Private Cloud:</b> Nube privada.</li>
+                        <li><b>Hybrid Cloud:</b> Nube híbrida.</li>
+                        <li><b>Multi-cloud:</b> Estrategia de múltiples proveedores de nube.</li>
+                        <li><b>API (Application Programming Interface):</b> Interfaz de programación de aplicaciones.</li>
+                        <li><b>REST API:</b> Arquitectura para servicios web ligeros.</li>
+                        <li><b>Middleware:</b> Software intermediario entre sistemas.</li>
+                        <li><b>Microservices:</b> Arquitectura basada en microservicios independientes.</li>
+                        <li><b>Container:</b> Contenedor de aplicaciones (ej. Docker).</li>
+                        <li><b>Kubernetes:</b> Orquestador de contenedores en la nube.</li>
+                        <li><b>Virtual Machine (VM):</b> Máquina virtual.</li>
+                        <li><b>Hypervisor:</b> Software gestor de máquinas virtuales.</li>
+
+                        <!-- Gestión de Datos y Operaciones -->
+                        <li><b>Data Center:</b> Centro de procesamiento de datos.</li>
+                        <li><b>Redundancy:</b> Redundancia de almacenamiento para prevención de fallos.</li>
+                        <li><b>Replication:</b> Replicación de datos en varios servidores.</li>
+                        <li><b>Disaster Recovery:</b> Plan de recuperación ante desastres.</li>
+                        <li><b>Failover:</b> Conmutación por error a un sistema de respaldo.</li>
+                        <li><b>Availability:</b> Disponibilidad del servicio.</li>
+                        <li><b>Uptime:</b> Tiempo de actividad o funcionamiento continuo.</li>
+                        <li><b>Downtime:</b> Tiempo de inactividad o caída del servicio.</li>
+                        <li><b>Scalability:</b> Escalabilidad o capacidad de crecimiento del sistema.</li>
+                        <li><b>Load Balancing:</b> Balanceo de carga de tráfico en servidores.</li>
+                        <li><b>Migration:</b> Migración de datos entre plataformas.</li>
+                        <li><b>Archiving:</b> Archivo a largo plazo de datos poco usados.</li>
+                        <li><b>Cold Storage:</b> Almacenamiento en frío para respaldos raramente consultados.</li>
+                        <li><b>Hot Storage:</b> Almacenamiento de alto rendimiento de acceso frecuente.</li>
+                        <li><b>Blob (Binary Large Object):</b> Objeto binario grande no estructurado.</li>
+
+                        <!-- Desarrollo, Código y Formatos de Archivo -->
+                        <li><b>Source Code:</b> Código fuente.</li>
+                        <li><b>Framework:</b> Marco de trabajo de software.</li>
+                        <li><b>Library:</b> Librería de código reusable.</li>
+                        <li><b>Repository:</b> Repositorio de código o documentos.</li>
+                        <li><b>Branch:</b> Rama de desarrollo en sistemas de control de versiones.</li>
+                        <li><b>Commit:</b> Confirmación de cambios en código.</li>
+                        <li><b>Merge:</b> Fusión de código de distintas ramas.</li>
+                        <li><b>Pull Request:</b> Solicitud de integración de código.</li>
+                        <li><b>Deploy / Deployment:</b> Despliegue de aplicaciones en producción.</li>
+                        <li><b>Bug:</b> Error o fallo en el software.</li>
+                        <li><b>Debug:</b> Depuración o corrección de errores.</li>
+                        <li><b>Patch:</b> Parche o actualización de software.</li>
+                        <li><b>Release:</b> Lanzamiento de una nueva versión.</li>
+                        <li><b>JSON (JavaScript Object Notation):</b> Formato ligero de intercambio de datos.</li>
+                        <li><b>XML:</b> Lenguaje de marcado extensible para estructurar datos.</li>
+
+                        <!-- Redes, Rendimiento y Caché -->
+                        <li><b>Cache:</b> Memoria caché para acceso ultrarrápido.</li>
+                        <li><b>CDN (Content Delivery Network):</b> Red de distribución de contenido geográfico.</li>
+                        <li><b>Node:</b> Nodo o punto de conexión dentro de un sistema distribuido.</li>
+                        <li><b>Traffic:</b> Tráfico de red o flujo de datos.</li>
+                        <li><b>Request:</b> Petición de datos enviada por un cliente.</li>
+                        <li><b>Response:</b> Respuesta devuelta por el servidor.</li>
+                        <li><b>Header:</b> Encabezado con metadatos de la petición o archivo.</li>
+                        <li><b>Payload:</b> Carga útil o datos reales transmitidos.</li>
+                        <li><b>Timeout:</b> Tiempo límite de espera agotado.</li>
+                        <li><b>Socket:</b> Punto final para comunicación bidireccional en tiempo real.</li>
+                        <li><b>WebSockets:</b> Protocolo para comunicación cliente-servidor persistente.</li>
+                        <li><b>Port:</b> Puerto de comunicación lógico de red.</li>
+                        <li><b>DNS Lookup:</b> Búsqueda y resolución de direcciones DNS.</li>
+                        <li><b>Ping:</b> Diagnóstico de tiempo de respuesta de red.</li>
+                        <li><b>Packet:</b> Paquete de datos transmitido en red.</li>
+
+                        <!-- Conceptos Adicionales de Tecnología y Análisis -->
+                        <li><b>Big Data:</b> Análisis de grandes volúmenes de datos.</li>
+                        <li><b>Data Mining:</b> Minería y extracción de patrones de datos.</li>
+                        <li><b>Data Analytics:</b> Análisis y procesamiento estadístico de datos.</li>
+                        <li><b>Machine Learning:</b> Aprendizaje automático orientado a datos.</li>
+                        <li><b>Artificial Intelligence (AI):</b> Inteligencia Artificial.</li>
+                        <li><b>Algorithm:</b> Algoritmo de procesamiento paso a paso.</li>
+                        <li><b>Metadata:</b> Datos que describen otros datos (fecha, tamaño, tipo).</li>
+                        <li><b>Log File:</b> Archivo de registro de eventos del sistema.</li>
+                        <li><b>Audit Trail:</b> Pista o registro de auditoría de seguridad.</li>
+                        <li><b>Compliance:</b> Cumplimiento normativo y legal de manejo de datos.</li>
+                        <li><b>GDPR:</b> Reglamento general de protección de datos.</li>
+                        <li><b>Privacy:</b> Privacidad y protección de información sensible.</li>
+                        <li><b>Leak:</b> Filtración no autorizada de información.</li>
+                        <li><b>Breach:</b> Brecha de seguridad en la infraestructura.</li>
+                        <li><b>Vulnerability:</b> Vulnerabilidad o debilidad de un sistema.</li>
+
+                        <!-- Mantenimiento y Monitoreo -->
+                        <li><b>Monitoring:</b> Monitoreo en tiempo real del estado del sistema.</li>
+                        <li><b>Alert:</b> Alerta o notificación de evento crítico.</li>
+                        <li><b>Threshold:</b> Umbral o límite configurado.</li>
+                        <li><b>Quota:</b> Cuota o límite asignado de almacenamiento.</li>
+                        <li><b>Compression:</b> Compresión de archivos para reducir tamaño.</li>
+                        <li><b>Decompression:</b> Descompresión de archivos comprimidos.</li>
+                        <li><b>Zip / Tar:</b> Formatos populares de empaquetado de archivos.</li>
+                        <li><b>Checksum:</b> Suma de comprobación para verificar la integridad del archivo.</li>
+                        <li><b>Corruption:</b> Corrupción de datos por error de escritura.</li>
+                        <li><b>Recovery:</b> Recuperación de archivos o estados del sistema.</li>
+                        <li><b>Restore:</b> Restauración de una copia de seguridad.</li>
+                        <li><b>Storage Pool:</b> Agrupación lógica de discos de almacenamiento.</li>
+                        <li><b>Volume:</b> Volumen de disco formateado.</li>
+                        <li><b>Partition:</b> Partición lógica de un almacenamiento físico.</li>
+                        <li><b>Format:</b> Formateo e inicialización de unidades.</li>
+
+                        <!-- Interacción de Usuario y Web -->
+                        <li><b>User Interface (UI):</b> Interfaz gráfica de usuario.</li>
+                        <li><b>User Experience (UX):</b> Experiencia del usuario en la navegación.</li>
+                        <li><b>Frontend:</b> Capa visual y de interacción con el usuario.</li>
+                        <li><b>Backend:</b> Capa lógica y servidor detrás de la interfaz.</li>
+                        <li><b>Full Stack:</b> Desarrollo integral de Frontend y Backend.</li>
+                        <li><b>Database Admin (DBA):</b> Administrador de bases de datos.</li>
+                        <li><b>DevOps:</b> Filosofía de integración entre desarrollo y operaciones.</li>
+                        <li><b>System Administrator (SysAdmin):</b> Administrador de sistemas informáticos.</li>
+                        <li><b>User Session:</b> Período de actividad de un usuario.</li>
+                        <li><b>Dashboard:</b> Panel de control con métricas clave.</li>
+                        <li><b>Widget:</b> Componente de interfaz de usuario de función específica.</li>
+                        <li><b>Callback:</b> Función ejecutada al completar una tarea asíncrona.</li>
+                        <li><b>Async / Await:</b> Programación asíncrona no bloqueante.</li>
+                        <li><b>Promise:</b> Objeto que representa un valor que estará disponible a futuro.</li>
+                        <li><b>Event Handler:</b> Manejador o controlador de eventos.</li>
+
+                        <!-- Almacenamiento Avanzado y Estructuras -->
+                        <li><b>SAN (Storage Area Network):</b> Red de área de almacenamiento dedicada.</li>
+                        <li><b>NAS (Network Attached Storage):</b> Almacenamiento conectado a la red local.</li>
+                        <li><b>RAID:</b> Matriz redundante de discos independientes.</li>
+                        <li><b>Object Storage:</b> Almacenamiento de datos estructurados como objetos.</li>
+                        <li><b>Block Storage:</b> Almacenamiento por bloques de alto rendimiento.</li>
+                        <li><b>File Storage:</b> Almacenamiento jerárquico clásico por archivos.</li>
+                        <li><b>I/O Operations:</b> Operaciones de entrada/salida de lectura y escritura.</li>
+                        <li><b>IOPS:</b> Operaciones de entrada/salida por segundo.</li>
+                        <li><b>Read-Only:</b> Modo de solo lectura sin permisos de modificación.</li>
+                        <li><b>Write-Only:</b> Modo de solo escritura.</li>
+                        <li><b>Read/Write (R/W):</b> Permisos completos de lectura y escritura.</li>
+                        <li><b>Ownership:</b> Propiedad o titularidad de un archivo o directorio.</li>
+                        <li><b>File System (FS):</b> Sistema de archivos (NTFS, EXT4, FAT32).</li>
+                        <li><b>Mount Point:</b> Punto de montaje de disco en el sistema.</li>
+                        <li><b>Zero-Knowledge Encryption:</b> Cifrado donde el proveedor no conoce la clave.</li>
+
+                        <!-- Términos de Trabajo Colaborativo y Proyecto -->
+                        <li><b>Sharing:</b> Compartir recursos con otros usuarios.</li>
+                        <li><b>Collaboration:</b> Trabajo colaborativo simultáneo.</li>
+                        <li><b>Version Control:</b> Control de versiones de un archivo.</li>
+                        <li><b>Conflict:</b> Conflicto por ediciones simultáneas no sincronizadas.</li>
+                        <li><b>Lock:</b> Bloqueo de archivo para evitar edición concurrente.</li>
+                        <li><b>Sync Conflict:</b> Conflicto de sincronización.</li>
+                        <li><b>Trash / Recycling Bin:</b> Papelera de reciclaje o elementos eliminados.</li>
+                        <li><b>Retention Policy:</b> Política de retención de archivos eliminados.</li>
+                        <li><b>Purge:</b> Borrado definitivo e irrecuperable de archivos.</li>
+                        <li><b>Quarantine:</b> Aislamiento de archivos infectados por malware.</li>
+                        <li><b>Malware:</b> Software malicioso o dañino.</li>
+                        <li><b>Antivirus / Scanner:</b> Escáner de seguridad y amenazas en archivos.</li>
+                        <li><b>Phishing:</b> Suplantación de identidad para robo de datos.</li>
+                        <li><b>Ransomware:</b> Secuestro de datos mediante cifrado no autorizado.</li>
+                        <li><b>Zero-Day:</b> Vulnerabilidad no descubierta o sin solución inmediata.</li>
+
+                        <!-- Métricas y Facturación en la Nube -->
+                        <li><b>Pay-as-you-go:</b> Modelo de pago por consumo exacto.</li>
+                        <li><b>Subscription:</b> Modelo de suscripción periódica.</li>
+                        <li><b>Tier:</b> Nivel de servicio o capa de rendimiento.</li>
+                        <li><b>Free Tier:</b> Capa de uso gratuito de la nube.</li>
+                        <li><b>Provisioning:</b> Asignación de recursos de almacenamiento/cómputo.</li>
+                        <li><b>Deprovisioning:</b> Liberación de recursos en desuso.</li>
+                        <li><b>SLA (Service Level Agreement):</b> Acuerdo de nivel de servicio garantizado.</li>
+                        <li><b>Benchmark:</b> Prueba de rendimiento comparativa del sistema.</li>
+                        <li><b>Overhead:</b> Sobrecarga de procesamiento o almacenamiento consumido.</li>
+                        <li><b>Workload:</b> Carga de trabajo asignada a un servidor.</li>
+                        <li><b>Cluster:</b> Grupo de servidores interconectados trabajando juntos.</li>
+                        <li><b>Grid Computing:</b> Computación distribuida en red.</li>
+                        <li><b>Edge Computing:</b> Procesamiento de datos cerca de la fuente de origen.</li>
+                        <li><b>Fog Computing:</b> Extensión intermedia entre la nube y los dispositivos.</li>
+                        <li><b>Serverless:</b> Arquitectura sin gestión directa de servidores físicos.</li>
+                    </ul>
+                </div>
             </div>
         </section>
     </main>
@@ -348,6 +391,38 @@
 
     <!-- Librería para convertir la traducción en imagen -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Script de navegación entre pestañas (SPA) -->
+    <script>
+        function mostrarSeccion(idSeccion) {
+            // Oculta todas las secciones
+            const secciones = document.querySelectorAll('.seccion-spa');
+            secciones.forEach(seccion => {
+                seccion.style.display = 'none';
+            });
+
+            // Muestra únicamente la sección seleccionada
+            const seccionActiva = document.getElementById(idSeccion);
+            if (seccionActiva) {
+                seccionActiva.style.display = 'block';
+            }
+
+            // Actualiza la pestaña activa en el menú
+            const botones = document.querySelectorAll('header nav a');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            
+            const botonActivo = document.querySelector(`header nav a[href="#${idSeccion}"]`);
+            if (botonActivo) {
+                botonActivo.classList.add('activo');
+            }
+        }
+
+        // Al cargar la página por primera vez se abre 'Home' por defecto
+        document.addEventListener("DOMContentLoaded", () => {
+            mostrarSeccion('home');
+        });
+    </script>
+
     <script src="script.js"></script>
     
 </body>

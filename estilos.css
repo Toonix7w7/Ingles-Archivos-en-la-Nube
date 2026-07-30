@@ -1,375 +1,567 @@
-/* ==========================================
-   1. TIPOGRAFÍAS OFICIALES (Estilo 111 de Milo J)
-   ========================================== */
-/* 'Caveat' y 'Architects Daughter' simulan perfectamente el trazo a lapicero de la tracklist */
-@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@1,700;1,900&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
 
+:root {
+    /* Paleta de colores principal */
+    --verde-bosque: #1b3b2b;
+    --verde-bosque-hover: #132b1f;
+    --verde-oliva: #556b2f;
+    --verde-oliva-suave: rgba(85, 107, 47, 0.12);
+    --crema: #fdfbf7;
+    --beige-claro: #f4efe6;
+    --beige-medio: #e8e0d2;
+    
+    /* Colores de texto y acentuación */
+    --texto-principal: #2c3531;
+    --texto-secundario: #5a6561;
+    --blanco: #ffffff;
+    --borde-suave: #e2dacd;
+    
+    /* Elevaciones y Sombras */
+    --sombra-card: 0 10px 30px -5px rgba(27, 59, 43, 0.05), 0 4px 12px -2px rgba(0, 0, 0, 0.03);
+    --sombra-hover: 0 20px 40px -10px rgba(27, 59, 43, 0.12), 0 8px 16px -4px rgba(0, 0, 0, 0.06);
+    --sombra-boton: 0 4px 14px rgba(27, 59, 43, 0.2);
+
+    /* Tipografía */
+    --font-titulos: 'Playfair Display', serif;
+    --font-cuerpo: 'Plus Jakarta Sans', sans-serif;
+
+    /* Bordes y Transiciones */
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+    --transicion: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   RESET & ESTILOS BASE
+   ========================================================================== */
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-/* ==========================================
-   2. FONDO BEIGE MATE Y ESTILOS GLOBALES
-   ========================================== */
 body {
-    background-color: #e3dad1 !important; /* Tono beige exacto de la portada */
-    color: #0f224a !important;            /* Azul lapicero de la gráfica */
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    margin: 0;
-    padding: 2.5rem 1rem;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* Selección en azul lapicero */
-::selection {
-    background: #0f224a;
-    color: #e3dad1;
-}
-
-/* ==========================================
-   3. ENCABEZADO "MILO J 111"
-   ========================================== */
-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    border-bottom: 2px solid #0f224a;
-    padding-bottom: 1.5rem;
-    position: relative;
-}
-
-/* Título principal con tipografía Serif Itálica como en la portada */
-header h1 {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 3.2rem;
-    font-weight: 900;
-    color: #ffffff;
-    text-shadow: 2px 2px 0px #0f224a, -1px -1px 0px #0f224a, 1px -1px 0px #0f224a, -1px 1px 0px #0f224a;
-    letter-spacing: -1px;
-    margin: 0;
-    text-transform: uppercase;
-}
-
-/* Marca "111" abajo a la derecha del encabezado */
-header::after {
-    content: "111";
-    font-family: 'Caveat', cursive;
-    font-size: 1.8rem;
-    color: #0f224a;
-    position: absolute;
-    bottom: -15px;
-    right: 10px;
-    background: #e3dad1;
-    padding: 0 8px;
-    font-weight: 700;
-}
-
-header nav {
-    margin-top: 1.5rem;
+    background-color: var(--crema);
+    color: var(--texto-principal);
+    font-family: var(--font-cuerpo);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   HEADER & NAVEGACIÓN PREMIUM
+   ========================================================================== */
+header {
+    background-color: var(--verde-bosque);
+    padding: 1.5rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 1.2rem;
 }
 
-header nav a {
-    font-family: 'Architects Daughter', cursive;
-    color: #0f224a;
-    text-decoration: none;
+header h1 {
+    font-family: var(--font-titulos);
+    color: var(--crema);
+    font-size: 2.2rem;
     font-weight: 700;
-    font-size: 1.1rem;
-    padding: 0.3rem 0.8rem;
-    border: 1px solid transparent;
-    transition: all 0.2s ease;
+    letter-spacing: -0.5px;
 }
 
-header nav a:hover {
-    border-bottom: 2px solid #0f224a;
-    transform: translateY(-1px);
+nav {
+    display: flex;
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 0.4rem;
+    border-radius: 50px;
+    backdrop-filter: blur(8px);
 }
 
-/* ==========================================
-   4. TITULOS ESTILO TRACKLIST (MANUSCRITO)
-   ========================================== */
-.seccion-spa {
-    margin-bottom: 3.5rem;
-}
-
-h2 {
-    font-family: 'Caveat', cursive;
-    font-size: 2.3rem;
-    color: #0f224a;
-    border-bottom: 2px solid #0f224a;
-    padding-bottom: 0.2rem;
-    margin-bottom: 1.5rem;
-    letter-spacing: 1px;
-}
-
-h3 {
-    font-family: 'Caveat', cursive;
-    font-size: 1.8rem;
-    margin-top: 0;
-    color: #0f224a;
-}
-
-.card-info {
-    background: rgba(255, 255, 255, 0.4);
-    border: 1.5px solid #0f224a; /* Trazo en azul lapicero */
-    padding: 1.8rem;
-    border-radius: 4px;
-    margin-bottom: 2rem;
-    box-shadow: 3px 3px 0px #0f224a; /* Sombra sólida tipo ilustración */
-}
-
-/* ==========================================
-   5. FOTO GRUPAL E INTEGRANTES
-   ========================================== */
-.subtitulo-autores {
-    font-family: 'Architects Daughter', cursive;
+nav a {
+    color: var(--beige-claro);
+    text-decoration: none;
+    padding: 0.6rem 1.4rem;
+    border-radius: 30px;
     font-size: 0.95rem;
-    color: #0f224a;
-    margin-bottom: 1.2rem;
+    font-weight: 500;
+    transition: var(--transicion);
+    cursor: pointer;
 }
 
-/* ==========================================
-   FOTO GRUPAL (AJUSTE Y RESPONSIVIDAD)
-   ========================================== */
+nav a:hover {
+    color: var(--blanco);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+nav a.activo {
+    background-color: var(--verde-oliva) !important;
+    color: var(--blanco) !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ==========================================================================
+   ESTRUCTURA PRINCIPAL Y CONTENEDORES
+   ========================================================================== */
+main {
+    max-width: 1200px;
+    width: 90%;
+    margin: 3rem auto;
+    flex: 1;
+}
+
+.seccion-spa {
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.seccion-spa h2 {
+    font-family: var(--font-titulos);
+    font-size: 2.2rem;
+    color: var(--verde-bosque);
+    margin-bottom: 2rem;
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.seccion-spa h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--verde-oliva);
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   TARJETAS ELEGANTES (CARDS)
+   ========================================================================== */
+.card-info {
+    background-color: var(--blanco);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid var(--borde-suave);
+    box-shadow: var(--sombra-card);
+    transition: var(--transicion);
+}
+
+.card-info:hover {
+    box-shadow: var(--sombra-hover);
+}
+
+.card-info h3 {
+    font-family: var(--font-titulos);
+    color: var(--verde-bosque);
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+}
+
+.subtitulo-autores {
+    color: var(--verde-oliva);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+/* ==========================================================================
+   SECCIÓN INTEGRANTES & FOTO GRUPAL (HOME)
+   ========================================================================== */
 .contenedor-foto-grupal {
     width: 100%;
-    max-width: 100%;       /* Asegura que no sobrepase el ancho de la tarjeta */
-    height: auto;          /* Permite que el alto se adapte proporcionalmente */
+    max-height: 480px;
     overflow: hidden;
-    border: 2px solid #0f224a;
-    border-radius: 4px;
-    margin-bottom: 1.5rem;
-    box-shadow: 4px 4px 0px #0f224a;
-    display: flex;          /* Centra la imagen si el contenedor es más amplio */
-    justify-content: center;
-    align-items: center;
+    border-radius: var(--radius-md);
+    margin-bottom: 2.5rem;
+    box-shadow: var(--sombra-card);
+    border: 1px solid var(--borde-suave);
 }
 
 .foto-grupal {
-    width: 100%;           /* Ocupa todo el ancho disponible */
-    height: auto;          /* Mantiene la relación de aspecto original (no se aplasta) */
-    max-height: 450px;     /* Límite máximo para que no ocupe toda la pantalla en monitores grandes */
-    object-fit: contain;   /* Muestra la imagen completa sin recortar ningún borde */
-    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
+.contenedor-foto-grupal:hover .foto-grupal {
+    transform: scale(1.03);
+}
+
 .lista-integrantes {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    padding-top: 1rem;
-    border-top: 1.5px dashed #0f224a;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5rem;
 }
 
 .integrante-item {
-    background: #ffffff;
-    padding: 0.8rem 1rem;
-    border: 1.5px solid #0f224a;
-    border-radius: 4px;
-    text-align: center;
-    box-shadow: 2px 2px 0px #0f224a;
+    background-color: var(--beige-claro);
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--borde-suave);
+    border-left: 4px solid var(--verde-oliva);
+    transition: var(--transicion);
+}
+
+.integrante-item:hover {
+    transform: translateY(-4px);
+    background-color: var(--blanco);
+    box-shadow: var(--sombra-card);
 }
 
 .integrante-item h4 {
-    margin: 0 0 0.2rem 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.95rem;
-    color: #0f224a;
+    color: var(--verde-bosque);
+    font-size: 1.1rem;
     font-weight: 700;
 }
 
 .rol-autor {
-    font-family: 'Architects Daughter', cursive;
-    font-size: 0.85rem;
-    color: #0f224a;
-    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--texto-secundario);
+    display: block;
+    margin-top: 0.3rem;
 }
 
-/* ==========================================
-   6. EDITOR Y ÁREA DE TRADUCCIÓN
-   ========================================== */
+/* ==========================================================================
+   EDITOR, REPOSITORIO & VISTA PREVIA
+   ========================================================================== */
 .editor-contenedor {
-    background: rgba(255, 255, 255, 0.5);
-    border: 2px solid #0f224a;
-    padding: 1.8rem;
-    border-radius: 4px;
+    background-color: var(--blanco);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    box-shadow: var(--sombra-card);
+    border: 1px solid var(--borde-suave);
+    margin-bottom: 2.5rem;
+}
+
+#form-upload {
+    display: flex;
+    gap: 1rem;
     margin-bottom: 2rem;
-    box-shadow: 4px 4px 0px #0f224a;
+    flex-wrap: wrap;
+}
+
+input[type="file"] {
+    flex: 1;
+    padding: 0.8rem;
+    background-color: var(--beige-claro);
+    border: 1px dashed var(--verde-oliva);
+    border-radius: var(--radius-sm);
+    color: var(--texto-principal);
+    cursor: pointer;
+}
+
+.vista-previa-box {
+    width: 100%;
+    max-height: 400px;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: var(--beige-claro);
+    border: 1px solid var(--borde-suave);
+    border-radius: var(--radius-md);
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vista-previa-box img {
+    max-width: 100%;
+    max-height: 380px;
+    border-radius: var(--radius-sm);
+    object-fit: contain;
+}
+
+.areas-edicion {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .bloque-editor label {
-    font-family: 'Architects Daughter', cursive;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #0f224a;
+    font-weight: 600;
+    color: var(--verde-bosque);
+    display: block;
+    margin-bottom: 0.5rem;
 }
 
 textarea {
     width: 100%;
-    height: 190px;
+    height: 180px;
     padding: 1rem;
-    border: 1.5px solid #0f224a;
-    border-radius: 4px;
-    font-family: 'Architects Daughter', cursive; /* Letra estilo manuscrito lapicero */
-    font-size: 1.05rem;
-    line-height: 1.5;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--borde-suave);
+    background-color: var(--crema);
+    font-family: var(--font-cuerpo);
+    font-size: 0.95rem;
+    color: var(--texto-principal);
     resize: vertical;
-    box-sizing: border-box;
-    background: #ffffff;
-    color: #0f224a;
+    transition: var(--transicion);
 }
 
 textarea:focus {
     outline: none;
-    border-width: 2px;
-    box-shadow: 2px 2px 0px #0f224a;
+    border-color: var(--verde-bosque);
+    box-shadow: 0 0 0 3px rgba(27, 59, 43, 0.1);
 }
 
-/* ==========================================
-   7. BOTONES (ESTILO AZUL LAPICERO Y BLANCO)
-   ========================================== */
-button, 
-#btn-procesar, 
-#btn-guardar-imagen {
-    background-color: #0f224a !important;
-    color: #ffffff !important;
-    border: 2px solid #0f224a;
-    padding: 0.8rem 1.6rem;
-    border-radius: 4px;
-    font-family: 'Caveat', cursive;
-    font-size: 1.3rem;
-    font-weight: 700;
+.tarjeta-exportable {
+    background: linear-gradient(135deg, var(--verde-bosque), #2d5540);
+    color: var(--crema);
+    padding: 2rem;
+    border-radius: var(--radius-md);
+    margin: 2rem 0;
+    box-shadow: var(--sombra-card);
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+#lista-archivos-guardados {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.item-archivo-guardado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1.2rem;
+    background-color: var(--blanco);
+    border: 1px solid var(--borde-suave);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    transition: var(--transicion);
+}
+
+.item-archivo-guardado:hover {
+    border-color: var(--verde-oliva);
+    background-color: var(--crema);
+}
+
+/* ==========================================================================
+   BOTONES
+   ========================================================================== */
+button, button[type="submit"] {
+    background-color: var(--verde-bosque);
+    color: var(--blanco);
+    border: none;
+    padding: 0.9rem 1.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    box-shadow: 3px 3px 0px #ffffff;
-    transition: all 0.15s ease;
+    transition: var(--transicion);
+    box-shadow: var(--sombra-boton);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
-button:hover, 
-#btn-procesar:hover, 
-#btn-guardar-imagen:hover {
-    background-color: #ffffff !important;
-    color: #0f224a !important;
-    box-shadow: 3px 3px 0px #0f224a;
-    transform: translate(-1px, -1px);
+button:hover, button[type="submit"]:hover {
+    background-color: var(--verde-bosque-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(27, 59, 43, 0.3);
+}
+
+button:active, button[type="submit"]:active {
+    transform: translateY(0);
 }
 
 .acciones-editor {
     display: flex;
     gap: 1rem;
     margin-top: 1.5rem;
-    justify-content: center;
+    flex-wrap: wrap;
 }
 
-/* ==========================================
-   8. TARJETA EXPORTABLE (FICHA DE TRADUCCIÓN)
-   ========================================== */
-.tarjeta-exportable {
-    background-color: #e3dad1;
-    border: 2px solid #0f224a;
-    border-radius: 4px;
-    padding: 2.5rem 2rem;
-    min-height: 200px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.5rem;
-    position: relative;
-    box-shadow: 4px 4px 0px #0f224a;
+#btn-guardar-imagen {
+    background-color: var(--verde-oliva);
 }
 
-.tarjeta-exportable::after {
-    content: "111";
-    position: absolute;
-    bottom: 12px;
-    right: 18px;
-    font-family: 'Caveat', cursive;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #0f224a;
+#btn-guardar-imagen:hover {
+    background-color: #435424;
 }
 
-#texto-espanol-contenido {
-    font-family: 'Caveat', cursive;
-    font-size: 1.8rem;
-    color: #0f224a;
-    margin: 0;
-    line-height: 1.4;
-    text-align: center;
+/* Botones secundarios (sin necesidad de !important) */
+button.btn-secundario {
+    background-color: transparent;
+    color: var(--verde-bosque);
+    border: 1px solid var(--verde-bosque);
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: none;
 }
 
-/* ==========================================
-   9. GLOSARIO MANUSCRITO
-   ========================================== */
+button.btn-secundario:hover {
+    background-color: var(--verde-bosque);
+    color: var(--blanco);
+    transform: translateY(-2px);
+    box-shadow: var(--sombra-boton);
+}
+
+button.btn-toggle {
+    border-color: var(--verde-oliva);
+    color: var(--verde-oliva);
+}
+
+button.btn-toggle:hover {
+    background-color: var(--verde-oliva);
+    color: var(--blanco);
+}
+
+button.btn-secundario:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    background-color: transparent;
+    color: var(--verde-bosque);
+}
+
+/* ==========================================================================
+   GLOSARIO PROFESIONAL
+   ========================================================================== */
+.glosario-box {
+    padding: 2.5rem;
+}
+
 .glosario-scroll {
-    max-height: 420px;
+    max-height: 500px;
     overflow-y: auto;
-    border: 1.5px solid #0f224a;
-    border-radius: 4px;
-    padding: 1.2rem;
-    background: #ffffff;
-    margin-top: 1rem;
-    box-shadow: 3px 3px 0px #0f224a;
+    padding-right: 1rem;
+    margin-top: 1.5rem;
 }
 
 .glosario-scroll::-webkit-scrollbar {
-    width: 7px;
+    width: 6px;
+}
+
+.glosario-scroll::-webkit-scrollbar-track {
+    background: var(--beige-claro);
+    border-radius: 10px;
 }
 
 .glosario-scroll::-webkit-scrollbar-thumb {
-    background: #0f224a;
-    border-radius: 4px;
+    background: var(--verde-oliva);
+    border-radius: 10px;
 }
 
 .glosario-lista {
     list-style: none;
-    padding-left: 0;
-    margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 0.8rem 1.4rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
 }
 
 .glosario-lista li {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    border-bottom: 1px dashed #0f224a;
-    padding-bottom: 0.4rem;
-    color: #0f224a;
+    background-color: var(--crema);
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--borde-suave);
+    font-size: 0.92rem;
+    transition: var(--transicion);
+}
+
+.glosario-lista li:hover {
+    background-color: var(--blanco);
+    border-color: var(--verde-oliva);
+    transform: translateX(4px);
 }
 
 .glosario-lista li b {
-    font-family: 'Architects Daughter', cursive;
-    color: #0f224a;
-    font-size: 1rem;
+    color: var(--verde-bosque);
+    display: block;
+    margin-bottom: 0.2rem;
 }
 
-/* ==========================================
-   10. PIE DE PÁGINA
-   ========================================== */
+/* ==========================================================================
+   FOOTER CORPORATIVO
+   ========================================================================== */
 footer {
+    background-color: var(--verde-bosque);
+    color: var(--beige-claro);
     text-align: center;
-    margin-top: 4rem;
-    font-family: 'Caveat', cursive;
-    font-size: 1.3rem;
-    color: #0f224a;
-    border-top: 1.5px solid #0f224a;
-    padding-top: 1.5rem;
+    padding: 2rem;
+    margin-top: auto;
+    border-top: 3px solid var(--verde-oliva);
+    font-size: 0.9rem;
 }
 
-/* Responsivo para celulares */
-@media (max-width: 600px) {
-    body {
-        padding: 1rem;
+/* ==========================================================================
+   SEPARADORES DE SECCIÓN
+   ========================================================================== */
+#recursos .card-info + .card-info {
+    margin-top: 2rem;
+}
+
+/* ==========================================================================
+   ADAPTABILIDAD MOBILE (RESPONSIVE)
+   ========================================================================== */
+@media (max-width: 768px) {
+    header {
+        padding: 1.2rem 1rem;
     }
+
     header h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
     }
-    .areas-edicion {
+
+    nav {
+        width: 100%;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0.3rem;
+    }
+
+    nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    main {
+        width: 92%;
+        margin: 1.5rem auto;
+    }
+
+    .card-info, .editor-contenedor {
+        padding: 1.5rem;
+    }
+
+    .glosario-lista {
+        grid-template-columns: 1fr;
+    }
+
+    button {
+        width: 100%;
+    }
+    
+    #form-upload {
         flex-direction: column;
     }
 }
