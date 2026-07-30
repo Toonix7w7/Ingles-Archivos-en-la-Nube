@@ -28,44 +28,103 @@
     </header>
 
     <main>
-        <!-- SECCIÓN 1: HOME -->
-        <section id="home" class="seccion-spa">
-            <h2>// HOME_PANEL</h2>
-            <div class="card-info">
-                <h3>Equipo de Trabajo y Autores</h3>
-                <p class="subtitulo-autores">Estudiantes de Ingeniería y Sistemas Digitales — Inglés 2</p>
+<!-- SECCIÓN 1: HOME -->
+<section id="home" class="seccion-spa">
+    <h2>// HOME_PANEL</h2>
 
-                <div class="contenedor-foto-grupal">
-                    <img src="uploads/equipo-grupal.jpg" alt="Foto del Grupo" class="foto-grupal" onerror="this.src='https://via.placeholder.com/800x400?text=Foto+Grupal+del+Equipo'">
-                </div>
+    <!-- PRESENTACIÓN Y EXPLICACIÓN DEL SITIO CON IMAGEN DE CABECERA -->
+    <div class="card-info" style="margin-bottom: 1.5rem; overflow: hidden; padding: 0;">
+        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop" 
+             alt="Redes y tecnología en la nube" 
+             style="width: 100%; height: 220px; object-fit: cover; display: block; border-bottom: 1px solid var(--verde-bosque, #00ff88);">
+        
+        <div style="padding: 1.5rem;">
+            <h3 style="color: var(--verde-bosque, #00ff88); font-size: 1.5rem; margin-bottom: 1rem; margin-top: 0;">
+                <i class="fa-solid fa-terminal"></i> Bienvenido al Portal de Recursos Tecnológicos
+            </h3>
+            
+            <p style="font-size: 1.1rem; line-height: 1.6; color: #e0e0e0; margin-bottom: 1rem;">
+                Esta plataforma es un espacio educativo diseñado para centralizar información clave, análisis y recursos sobre tecnologías digitales, arquitecturas en la nube y sistemas modernos.
+            </p>
 
-                <div class="lista-integrantes">
-                    <div class="integrante-item">
-                        <h4>Santiago Sánchez</h4>
-                        <span class="rol-autor">Líder & Desarrollo Web</span>
-                    </div>
-                    <div class="integrante-item">
-                        <h4>Ariel Condo</h4>
-                        <span class="rol-autor">Documentación & Traducción</span>
-                    </div>
-                    <div class="integrante-item">
-                        <h4>Jimmy Vedia</h4>
-                        <span class="rol-autor">Investigación Cloud Storage</span>
-                    </div>
-                    <div class="integrante-item">
-                        <h4>Nicolás Miranda</h4>
-                        <span class="rol-autor">Diseño UI & Glosario</span>
-                    </div>
+            <p style="line-height: 1.6; color: #aaa; margin: 0;">
+                Aquí encontrarás documentación estructurada, enlaces a demostraciones prácticas y material audiovisual seleccionado para facilitar la comprensión de conceptos complejos de manera ágil e interactiva.
+            </p>
+        </div>
+    </div>
+
+    <!-- TARJETAS DE NAVEGACIÓN CON IMÁGENES -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        
+        <div class="card-info" style="padding: 0; overflow: hidden; border-top: 3px solid #00ff88;">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=500&auto=format&fit=crop" 
+                 alt="Documentación e investigación" 
+                 style="width: 100%; height: 130px; object-fit: cover;">
+            <div style="padding: 1rem;">
+                <h4 style="margin-top: 0; color: #00ff88;"><i class="fa-solid fa-book"></i> Documentación</h4>
+                <p style="font-size: 0.9rem; color: #aaa; margin: 0;">Explora el marco conceptual, guías y los fundamentos teóricos del proyecto.</p>
+            </div>
+        </div>
+
+        <div class="card-info" style="padding: 0; overflow: hidden; border-top: 3px solid #00ff88;">
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=500&auto=format&fit=crop" 
+                 alt="Almacenamiento en la nube" 
+                 style="width: 100%; height: 130px; object-fit: cover;">
+            <div style="padding: 1rem;">
+                <h4 style="margin-top: 0; color: #00ff88;"><i class="fa-brands fa-youtube"></i> Multimedia</h4>
+                <p style="font-size: 0.9rem; color: #aaa; margin: 0;">Accede a la lista de tutoriales y análisis en video sobre almacenamiento en la nube.</p>
+            </div>
+        </div>
+
+        <div class="card-info" style="padding: 0; overflow: hidden; border-top: 3px solid #00ff88;">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=500&auto=format&fit=crop" 
+                 alt="Desarrollo de código" 
+                 style="width: 100%; height: 130px; object-fit: cover;">
+            <div style="padding: 1rem;">
+                <h4 style="margin-top: 0; color: #00ff88;"><i class="fa-solid fa-code"></i> Arquitectura</h4>
+                <p style="font-size: 0.9rem; color: #aaa; margin: 0;">Conoce la estructura del sistema y las herramientas de desarrollo utilizadas.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- EQUIPO DE TRABAJO Y AUTORES -->
+    <div class="card-info">
+        <h3 style="color: var(--verde-bosque, #00ff88); margin-top: 0;">
+            <i class="fa-solid fa-users"></i> Equipo de Trabajo y Autores
+        </h3>
+        <p class="subtitulo-autores">Estudiantes de Ingeniería y Sistemas Digitales — Inglés 2</p>
+
+        <div class="contenedor-foto-grupal">
+            <img src="uploads/equipo-grupal.jpg" alt="Foto del Grupo" class="foto-grupal" onerror="this.src='https://via.placeholder.com/800x400?text=Foto+Grupal+del+Equipo'">
+        </div>
+
+        <div class="lista-integrantes">
+            <div class="integrante-item">
+                    <h4>Santiago Sánchez</h4>
+                    <span class="rol-autor">Líder & Desarrollo Web</span>
+            </div>
+            <div class="integrante-item">
+                    <h4>Ariel Condo</h4>
+                    <span class="rol-autor">Documentación & Traducción</span>
+            </div>
+            <div class="integrante-item">
+                    <h4>Jimmy Vedia</h4>
+                    <span class="rol-autor">Investigación Cloud Storage</span>
+            </div>
+            <div class="integrante-item">
+                    <h4>Nicolás Miranda</h4>
+                    <span class="rol-autor">Diseño UI & Glosario</span>
                 </div>
             </div>
-        </section>
-
+        </div>
+    </section>
         <!-- SECCIÓN 2: ABOUT US -->
         <section id="about" class="seccion-spa" style="display: none;">
             <h2>// ABOUT_US</h2>
             <div class="card-info">
                 <h3>¿Qué es el Almacenamiento en la Nube?</h3>
-                <p>El almacenamiento en la nube es un servicio que permite guardar archivos y datos en servidores de Internet, en lugar de hacerlo únicamente en la memoria de un celular o computadora. De esta forma, los archivos pueden consultarse desde cualquier dispositivo con conexión a Internet.</p>
+                <p>Es un modelo de servicio donde los datos se transmiten y almacenan en sistemas de almacenamiento remotos.</p>
             </div>
             <div class="card-info">
                 <h3>Enfoque y Problemática</h3>
@@ -228,13 +287,94 @@
                 <div class="glosario-scroll">
                     <ul class="glosario-lista">
                         <li><strong>Cloud Storage:</strong> Almacenamiento de datos en servidores remotos accesibles vía internet.</li>
-                        <li><strong>API:</strong> Interfaz de programación que permite la comunicación entre diferentes aplicaciones.</li>
-                        <li><strong>OCR:</strong> Reconocimiento óptico de caracteres, tecnología para convertir imágenes de texto en texto editable.</li>
-                        <li><strong>PDF:</strong> Formato de documento portátil utilizado para presentar e intercambiar documentos de manera confiable.</li>
-                        <li><strong>UI/UX:</strong> Diseño de interfaz y experiencia del usuario, enfocado en la usabilidad y estética de aplicaciones.</li>
-                        <li><strong>Repositorio:</strong> Lugar donde se almacenan y gestionan archivos y recursos digitales.</li>
-                        <li><strong>Traducción Automática:</strong> Proceso de traducir texto de un idioma a otro mediante software o algoritmos.</li>
-                    </ul>
+                            <li><strong>AWS (Amazon Web Services):</strong> Plataforma líder de servicios de computación en la nube en la nube pública.</li>
+                            <li><strong>Azure:</strong> Plataforma de servicios en la nube desarrollada por Microsoft para crear y gestionar aplicaciones.</li>
+                            <li><strong>Google Cloud Platform (GCP):</strong> Suite de servicios de desarrollo y almacenamiento en la nube de Google.</li>
+                            <li><strong>IaaS (Infrastructure as a Service):</strong> Provisión de infraestructura informática (servidores, redes) a través de internet.</li>
+                            <li><strong>PaaS (Platform as a Service):</strong> Entorno de desarrollo en la nube listo para construir, probar y desplegar software.</li>
+                            <li><strong>SaaS (Software as a Service):</strong> Modelo donde el software se entrega a través de internet como un servicio.</li>
+                            <li><strong>Serverless:</strong> Modelo de ejecución en la nube donde el proveedor gestiona la asignación dinámica de recursos.</li>
+                            <li><strong>Data Center (Centro de Datos):</strong> Instalación física que alberga infraestructura crítica de servidores y redes.</li>
+                            <li><strong>Virtual Machine (VM):</strong> Entorno virtualizado que simula un sistema de cómputo físico independiente.</li>
+                            <li><strong>Docker:</strong> Plataforma de software para empaquetar aplicaciones en contenedores ligeros y portables.</li>
+                            <li><strong>Kubernetes:</strong> Sistema de código abierto para automatizar la implementación y gestión de contenedores.</li>
+                            <li><strong>Scalability (Escalabilidad):</strong> Capacidad de un sistema para manejar un crecimiento de carga de trabajo sin perder rendimiento.</li>
+                            <li><strong>Load Balancer (Balanceador de Carga):</strong> Dispositivo o software que distribuye el tráfico de red entre varios servidores.</li>
+                            <li><strong>Multi-Cloud:</strong> Estrategia de utilizar servicios de dos o más proveedores de nube simultáneamente.</li>
+
+                            <!-- CATEGORÍA: DESARROLLO WEB & ARCHIVO (16-30) -->
+                            <li><strong>API (Application Programming Interface):</strong> Interfaz de comunicación entre diferentes aplicaciones de software.</li>
+                            <li><strong>REST (Representational State Transfer):</strong> Estilo de arquitectura de software para diseñar servicios web eficientes.</li>
+                            <li><strong>JSON (JavaScript Object Notation):</strong> Formato de intercambio de datos ligero y fácil de leer para humanos y máquinas.</li>
+                            <li><strong>HTML (HyperText Markup Language):</strong> Lenguaje de marcado estándar para la estructura de páginas web.</li>
+                            <li><strong>CSS (Cascading Style Sheets):</strong> Lenguaje utilizado para definir el diseño visual y presentación de documentos HTML.</li>
+                            <li><strong>JavaScript:</strong> Lenguaje de programación interpretado para crear interactividad en sitios web.</li>
+                            <li><strong>Frontend:</strong> Capa de presentación visual con la que interactúa directamente el usuario en una web.</li>
+                            <li><strong>Backend:</strong> Capa lógica del servidor, manejo de datos y reglas de negocio detrás de la interfaz.</li>
+                            <li><strong>DOM (Document Object Model):</strong> Estructura jerárquica de nodos que representa la interfaz de una página HTML.</li>
+                            <li><strong>SPA (Single Page Application):</strong> Aplicación web que carga una sola página y actualiza contenido dinámicamente.</li>
+                            <li><strong>Responsive Design:</strong> Filosofía de diseño web para adaptar la interfaz a diferentes tamaños de pantalla.</li>
+                            <li><strong>PDF (Portable Document Format):</strong> Formato estándar para almacenar documentos de manera independiente del SO.</li>
+                            <li><strong>Repositorio:</strong> Almacén digital centralizado donde se gestiona y guarda código fuente o archivos de un proyecto.</li>
+                            <li><strong>Framework:</strong> Estructura conceptual y tecnológica estandarizada que sirve de base para desarrollar software.</li>
+                            <li><strong>Git:</strong> Sistema de control de versiones distribuido para rastrear cambios en el código fuente.</li>
+
+                            <!-- CATEGORÍA: SEGURIDAD & REDES (31-45) -->
+                            <li><strong>Encryption (Cifrado):</strong> Proceso de codificar datos para evitar que personas no autorizadas accedan a ellos.</li>
+                            <li><strong>SSL/TLS:</strong> Protocolos criptográficos que proporcionan comunicaciones seguras sobre una red de cómputo.</li>
+                            <li><strong>HTTPS:</strong> Versión segura del protocolo HTTP que utiliza cifrado TLS para proteger la transmisión de datos.</li>
+                            <li><strong>Firewall:</strong> Sistema de seguridad de red que monitorea y filtra el tráfico entrante y saliente.</li>
+                            <li><strong>MFA (Authentication Multi-Factor):</strong> Sistema de verificación de identidad que requiere dos o más evidencias.</li>
+                            <li><strong>Latency (Latencia):</strong> El tiempo de retraso de transmisión entre la emisión y recepción de un paquete de datos.</li>
+                            <li><strong>Bandwidth (Ancho de Banda):</strong> Cantidad máxima de datos que pueden transmitirse por una conexión en un tiempo dado.</li>
+                            <li><strong>IP Address:</strong> Etiqueta numérica que identifica de manera única a un dispositivo en una red.</li>
+                            <li><strong>DNS (Domain Name System):</strong> Sistema que traduce nombres de dominio legibles a direcciones IP numéricas.</li>
+                            <li><strong>CDN (Content Delivery Network):</strong> Red distribuida de servidores para entregar contenido web a alta velocidad.</li>
+                            <li><strong>Token:</strong> Clave de seguridad temporal utilizada para autenticar peticiones entre clientes y servidores.</li>
+                            <li><strong>Cybersecurity (Ciberseguridad):</strong> Práctica de proteger sistemas, redes y programas contra ataques digitales.</li>
+                            <li><strong>VPN (Virtual Private Network):</strong> Tecnología que crea una conexión de red cifrada y segura sobre redes públicas.</li>
+                            <li><strong>Zero Trust:</strong> Modelo de seguridad que exige verificación estricta para cada usuario y dispositivo.</li>
+                            <li><strong>Backup (Copia de Seguridad):</strong> Duplicado de datos realizado para recuperar información en caso de pérdida.</li>
+
+                            <!-- CATEGORÍA: INTELIGENCIA ARTIFICIAL & OCR (46-60) -->
+                            <li><strong>OCR (Optical Character Recognition):</strong> Tecnología para convertir texto dentro de imágenes en texto editable.</li>
+                            <li><strong>Traducción Automática:</strong> Proceso de traducción de texto o voz entre idiomas mediante modelos de software.</li>
+                            <li><strong>AI (Artificial Intelligence):</strong> Simulación de procesos de inteligencia humana por parte de sistemas informáticos.</li>
+                            <li><strong>Machine Learning:</strong> Rama de la IA que permite a los sistemas aprender y mejorar automáticamente con datos.</li>
+                            <li><strong>Deep Learning:</strong> Subcampo del Machine Learning basado en redes neuronales artificiales profundas.</li>
+                            <li><strong>NLP (Natural Language Processing):</strong> Campo de la IA enfocado en la interacción entre computadoras y lenguaje humano.</li>
+                            <li><strong>LLM (Large Language Model):</strong> Modelo de IA entrenado con grandes volúmenes de texto para procesar lenguaje.</li>
+                            <li><strong>Algorithm (Algoritmo):</strong> Conjunto de instrucciones ordenadas y finitas para resolver un problema específico.</li>
+                            <li><strong>Prompt:</strong> Texto o instrucción de entrada proporcionada a un modelo de IA para obtener una respuesta.</li>
+                            <li><strong>Dataset:</strong> Colección estructurada de datos utilizada para entrenar o evaluar modelos de análisis y Machine Learning.</li>
+                            <li><strong>Neural Network (Red Neuronal):</strong> Modelo computacional inspirado en la estructura del cerebro humano.</li>
+                            <li><strong>Computer Vision:</strong> Campo de la IA que permite a las computadoras interpretar y procesar información visual.</li>
+                            <li><strong>Tokenization (Tokenización):</strong> Proceso de dividir una cadena de texto en unidades pequeñas (palabras o subpalabras).</li>
+                            <li><strong>Data Mining:</strong> Proceso de descubrir patrones, anomalías y correlaciones en grandes conjuntos de datos.</li>
+                            <li><strong>Big Data:</strong> Conjuntos de datos masivos y complejos que requieren software avanzado para ser procesados.</li>
+
+                            <!-- CATEGORÍA: DISEÑO, UI/UX & PROCESAMIENTO (61-80) -->
+                            <li><strong>UI (User Interface):</strong> Elementos visuales y de interacción con los que un usuario controla un sistema.</li>
+                            <li><strong>UX (User Experience):</strong> Experiencia y nivel de satisfacción general que tiene un usuario al usar un producto.</li>
+                            <li><strong>Usability (Usabilidad):</strong> Medida en la que un producto o sitio web es fácil y claro de utilizar.</li>
+                            <li><strong>Wireframe:</strong> Boceto o esquema visual básico de la estructura de una interfaz de usuario.</li>
+                            <li><strong>Prototype (Prototipo):</strong> Modelo preliminar de un sistema o interfaz utilizado para pruebas de interacción.</li>
+                            <li><strong>Accessibility (Accesibilidad):</strong> Diseño de sistemas para que sean utilizables por personas con discapacidades.</li>
+                            <li><strong>Middleware:</strong> Capa de software que conecta y permite la comunicación entre distintas aplicaciones.</li>
+                            <li><strong>CI/CD:</strong> Integración y despliegue continuos para automatizar las fases de desarrollo de software.</li>
+                            <li><strong>Database (Base de Datos):</strong> Sistema organizado para recopilar, almacenar y gestionar datos digitales.</li>
+                            <li><strong>SQL:</strong> Lenguaje de dominio específico utilizado para gestionar bases de datos relacionales.</li>
+                            <li><strong>NoSQL:</strong> Bases de datos diseñadas para almacenar datos no estructurados o de esquema flexible.</li>
+                            <li><strong>Query (Consulta):</strong> Solicitud formal de información a una base de datos o motor de búsqueda.</li>
+                            <li><strong>Cache:</strong> Memoria de acceso rápido que almacena temporalmente datos para acelerar lecturas futuras.</li>
+                            <li><strong>Asynchronous (Asíncrono):</strong> Proceso informático que se ejecuta en segundo plano sin bloquear el hilo principal.</li>
+                            <li><strong>Webhook:</strong> Mecanismo automatizado para enviar información en tiempo real de una aplicación a otra vía HTTP.</li>
+                            <li><strong>CRUD:</strong> Acrónimo de Crear, Leer, Actualizar y Borrar (operaciones básicas de una base de datos).</li>
+                            <li><strong>DevOps:</strong> Conjunto de prácticas que combinan el desarrollo de software (Dev) y las operaciones (Ops).</li>
+                            <li><strong>Open Source:</strong> Software cuyo código fuente está disponible públicamente para inspección y modificación.</li>
+                            <li><strong>Bug:</strong> Error o fallo en un programa de software que produce un resultado imprevisto o incorrecto.</li>
+                            <li><strong>Log:</strong> Registro cronológico automático de eventos y actividades que ocurren en un sistema informático.</li>
+                        </ul>
                 </div>
             </div>
         </section>
