@@ -1,178 +1,139 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const btnTraducirApi = document.getElementById("btn-traducir-api");
-    const btnSwitchIdioma = document.getElementById("btn-switch-idioma");
-    const btnProcesar = document.getElementById("btn-procesar");
-    const btnGuardarImagen = document.getElementById("btn-guardar-imagen");
-    const textareaIngles = document.getElementById("texto-ingles");
-    const textareaEspanol = document.getElementById("texto-espanol");
-    const contenedorResultado = document.getElementById("texto-espanol-contenido");
+    // Referencias a elementos del DOM
     const formUpload = document.getElementById("form-upload");
     const archivoInput = document.getElementById("archivo-input");
     const vistaPrevia = document.getElementById("vista-previa");
-    const listaArchivosGuardados = document.getElementById("lista-archivos-guardados");
-
-    let repositorioArchivos = [];
+    const listaArchivos = document.getElementById("lista-archivos-guardados");
     
-    // Configuración de idiomas (por defecto: Inglés -> Español)
-    let idiomaOrigen = "en";
-    let idiomaDestino = "es";
+    const textoIngles = document.getElementById("texto-ingles");
+    const textoEspanol = document.getElementById("texto-espanol");
+    const btnTraducir = document.getElementById("btn-traducir-api");
+    const btnSwitch = document.getElementById("btn-switch-idioma");
+    const btnProcesar = document.getElementById("btn-procesar");
+    const cardTraduccion = document.getElementById("card-traduccion");
+    const textoEspanolContenido = document.getElementById("texto-espanol-contenido");
+    const btnGuardarImagen = document.getElementById("btn-guardar-imagen");
 
-    // ==========================================================================
-    // 1. ALTERNAR DIRECCIÓN DE TRADUCCIÓN (EN -> ES / ES -> EN)
-    // ==========================================================================
-    if (btnSwitchIdioma) {
-        btnSwitchIdioma.addEventListener("click", () => {
-            if (idiomaOrigen === "en") {
-                idiomaOrigen = "es";
-                idiomaDestino = "en";
-                btnTraducirApi.innerText = "🤖 Traducir (ES ➔ EN)";
-            } else {
-                idiomaOrigen = "en";
-                idiomaDestino = "es";
-                btnTraducirApi.innerText = "🤖 Traducir (EN ➔ ES)";
-            }
-        });
-    }
+    // Arreglo para almacenar los archivos subidos en memoria
+    let archivosGuardados = [];
 
-    // ==========================================================================
-    // 2. TRADUCCIÓN AUTOMÁTICA CON API (MyMemory API Bidireccional)
-    // ==========================================================================
-    if (btnTraducirApi) {
-        btnTraducirApi.addEventListener("click", async () => {
-            const textoOriginal = textareaIngles ? textareaIngles.value.trim() : "";
-
-            if (textoOriginal === "") {
-                alert("Por favor ingresa un texto para traducir.");
-                return;
-            }
-
-            btnTraducirApi.disabled = true;
-            const textoOriginalBoton = btnTraducirApi.innerText;
-            btnTraducirApi.innerText = "⏳ Traduciendo...";
-
-            try {
-                // Petición dinámicamente configurada según el par de idiomas (en|es o es|en)
-                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(textoOriginal)}&langpair=${idiomaOrigen}|${idiomaDestino}`;
-                const respuesta = await fetch(url);
-                const datos = await respuesta.json();
-
-                if (datos && datos.responseData && datos.responseData.translatedText) {
-                    textareaEspanol.value = datos.responseData.translatedText;
-                    alert("Traducción generada. Por favor revisa y corrige la terminología técnica antes de publicar.");
-                } else {
-                    alert("No se pudo obtener la traducción de la API. Inténtalo de nuevo.");
-                }
-            } catch (error) {
-                console.error("Error en la traducción:", error);
-                alert("Hubo un error al conectar con la API de traducción.");
-            } finally {
-                btnTraducirApi.disabled = false;
-                btnTraducirApi.innerText = textoOriginalBoton;
-            }
-        });
-    }
-
-    // ==========================================================================
-    // 3. PUBLICAR TRADUCCIÓN REVISADA
-    // ==========================================================================
-    if (btnProcesar) {
-        btnProcesar.addEventListener("click", () => {
-            const textoTraduccion = textareaEspanol ? textareaEspanol.value.trim() : "";
-
-            if (textoTraduccion === "") {
-                alert("Por favor asegúrate de revisar o redactar la traducción antes de publicar.");
-                return;
-            }
-
-            if (contenedorResultado) {
-                contenedorResultado.innerText = textoTraduccion;
-            }
-        });
-    }
-
-    // ==========================================================================
-    // 4. SUBIDA Y REPOSITORIO DE ARCHIVOS
-    // ==========================================================================
-    if (archivoInput) {
-        archivoInput.addEventListener("change", (e) => {
-            const archivo = e.target.files[0];
-            if (!archivo) return;
-
-            vistaPrevia.innerHTML = "";
-
-            if (archivo.type.startsWith("image/")) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const img = document.createElement("img");
-                    img.src = event.target.result;
-                    vistaPrevia.appendChild(img);
-                    vistaPrevia.style.display = "flex";
-                };
-                reader.readAsDataURL(archivo);
-            } else {
-                vistaPrevia.style.display = "none";
-            }
-        });
-    }
-
+    // --- 1. MANEJO DE SUBIDA DE ARCHIVOS ---
     if (formUpload) {
         formUpload.addEventListener("submit", (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Evita que la página se recargue
 
             const archivo = archivoInput.files[0];
+
             if (!archivo) {
-                alert("Selecciona un archivo antes de guardar.");
+                alert("Por favor selecciona un archivo primero.");
                 return;
             }
 
-            const nuevoArchivo = {
-                nombre: archivo.name,
-                tamaño: (archivo.size / 1024).toFixed(2) + " KB",
-                fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
-
-            repositorioArchivos.push(nuevoArchivo);
+            // Agregar a la lista interna
+            archivosGuardados.push(archivo);
             actualizarListaArchivos();
 
+            // Mostrar vista previa según el tipo
+            mostrarVistaPrevia(archivo);
+
+            // Limpiar input
             archivoInput.value = "";
-            vistaPrevia.innerHTML = "";
-            vistaPrevia.style.display = "none";
         });
     }
 
+    // Función para renderizar la lista de archivos guardados
     function actualizarListaArchivos() {
-        if (!listaArchivosGuardados) return;
+        if (!listaArchivos) return;
 
-        if (repositorioArchivos.length === 0) {
-            listaArchivosGuardados.innerHTML = `<p style="color: var(--texto-secundario); font-size: 0.9rem;">No hay archivos guardados aún.</p>`;
+        if (archivosGuardados.length === 0) {
+            listaArchivos.innerHTML = `<p style="color: var(--texto-secundario, #666); font-size: 0.9rem;">No hay archivos guardados aún.</p>`;
             return;
         }
 
-        listaArchivosGuardados.innerHTML = repositorioArchivos.map(item => `
-            <div class="item-archivo-guardado">
-                <span>📄 <strong>${item.nombre}</strong> (${item.tamaño})</span>
-                <span style="color: var(--texto-secundario); font-size: 0.8rem;">Subido a las ${item.fecha}</span>
-            </div>
-        `).join("");
+        listaArchivos.innerHTML = ""; // Limpiar lista anterior
+        const ul = document.createElement("ul");
+        ul.style.listStyle = "none";
+        ul.style.padding = "0";
+
+        archivosGuardados.forEach((item, index) => {
+            const li = document.createElement("li");
+            li.style.padding = "0.5rem 0";
+            li.style.borderBottom = "1px solid #ccc";
+            li.innerHTML = `📄 <strong>${item.name}</strong> (${(item.size / 1024).toFixed(1)} KB) - <em>${item.type || 'Archivo'}</em>`;
+            ul.appendChild(li);
+        });
+
+        listaArchivos.appendChild(ul);
     }
 
-    // ==========================================================================
-    // 5. EXPORTAR TARJETA COMO IMAGEN
-    // ==========================================================================
-    if (btnGuardarImagen) {
-        btnGuardarImagen.addEventListener("click", () => {
-            const cardExportable = document.getElementById("card-traduccion");
+    // Función para generar vista previa en pantalla
+    function mostrarVistaPrevia(archivo) {
+        if (!vistaPrevia) return;
+        
+        vistaPrevia.style.display = "block";
+        vistaPrevia.innerHTML = ""; // Limpiar vista previa previa
 
-            if (typeof html2canvas === "undefined") {
-                alert("Error al cargar la librería de exportación.");
+        // Si es una imagen
+        if (archivo.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                vistaPrevia.innerHTML = `<img src="${e.target.result}" alt="Vista Previa" style="max-width: 100%; max-height: 250px; border-radius: 5px; margin-top: 10px;">`;
+            };
+            reader.readAsDataURL(archivo);
+        } 
+        // Si es un archivo de texto
+        else if (archivo.type === "text/plain") {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const contenido = e.target.result;
+                textoIngles.value = contenido; // Carga el texto en el área de traducción
+                vistaPrevia.innerHTML = `<p style="color: green;">✔ Texto cargado correctamente en el área de edición.</p>`;
+            };
+            reader.readAsText(archivo);
+        } 
+        // Otros formatos (PDF, etc.)
+        else {
+            vistaPrevia.innerHTML = `<p style="color: #333;">✔ Archivo <strong>${archivo.name}</strong> recibido y guardado en el repositorio.</p>`;
+        }
+    }
+
+    // --- 2. TRADUCCIÓN SIMPLE Y PUBLICACIÓN ---
+    if (btnTraducir) {
+        btnTraducir.addEventListener("click", () => {
+            const texto = textoIngles.value.trim();
+            if (!texto) {
+                alert("Escribe o carga algún texto para traducir.");
                 return;
             }
+            // Simulación/Borrador de traducción o integración
+            textoEspanol.value = "[Traducción/Procesado]: " + texto;
+        });
+    }
 
-            html2canvas(cardExportable, { scale: 2 }).then(canvas => {
-                const enlace = document.createElement("a");
-                enlace.download = "traduccion-tecnica-revisada.png";
-                enlace.href = canvas.toDataURL("image/png");
-                enlace.click();
+    if (btnProcesar) {
+        btnProcesar.addEventListener("click", () => {
+            const resultado = textoEspanol.value.trim();
+            if (resultado) {
+                textoEspanolContenido.innerText = resultado;
+                cardTraduccion.style.display = "block";
+            } else {
+                alert("No hay texto traducido para publicar.");
+            }
+        });
+    }
+
+    // --- 3. EXPORTAR COMO IMAGEN (html2canvas) ---
+    if (btnGuardarImagen) {
+        btnGuardarImagen.addEventListener("click", () => {
+            if (typeof html2canvas === "undefined") {
+                alert("La librería html2canvas no se ha cargado. Revisa tu conexión a internet.");
+                return;
+            }
+            html2canvas(cardTraduccion).then(canvas => {
+                const link = document.createElement("a");
+                link.download = "traduccion-cloud.png";
+                link.href = canvas.toDataURL();
+                link.click();
             });
         });
     }
