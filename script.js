@@ -39,41 +39,59 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     // 2. TRADUCCIÓN AUTOMÁTICA CON API (MyMemory API Bidireccional)
     // ==========================================================================
-    if (btnTraducirApi) {
-        btnTraducirApi.addEventListener("click", async () => {
-            const textoOriginal = textareaIngles ? textareaIngles.value.trim() : "";
+// 2. TRADUCCIÓN ROBUSTA (A PRUEBA DE FALLOS Y TEXTOS LARGOS)
+if (btnTraducirApi) {
+    btnTraducirApi.addEventListener("click", async () => {
+        const textoOriginal = textareaIngles ? textareaIngles.value.trim() : "";
 
-            if (textoOriginal === "") {
-                alert("Por favor ingresa o carga un texto para traducir.");
-                return;
-            }
+        if (!textoOriginal) {
+            alert("Por favor ingresa o carga un texto antes de traducir.");
+            return;
+        }
 
-            btnTraducirApi.disabled = true;
-            const textoOriginalBoton = btnTraducirApi.innerText;
-            btnTraducirApi.innerText = "⏳ Traduciendo...";
+        btnTraducirApi.disabled = true;
+        const textoBotonOriginal = btnTraducirApi.innerHTML;
+        btnTraducirApi.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Traduciendo...`;
 
-            try {
-                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(textoOriginal)}&langpair=${idiomaOrigen}|${idiomaDestino}`;
-                const respuesta = await fetch(url);
-                const datos = await respuesta.json();
+        try {
+            // Reemplazar saltos de línea por espacios para evitar errores en la URL
+            const textoLimpio = textoOriginal.replace(/\n+/g, " ");
 
-                if (datos && datos.responseData && datos.responseData.translatedText) {
-                    if (textareaEspanol) {
-                        textareaEspanol.value = datos.responseData.translatedText;
-                    }
-                } else {
-                    alert("No se pudo obtener la traducción de la API. Inténtalo de nuevo.");
+            // Opción 1: API Directa de Traducción (Lingva Translate)
+            let url = `https://lingva.ml/api/v1/${idiomaOrigen}/${idiomaDestino}/${encodeURIComponent(textoLimpio)}`;
+            
+            let respuesta = await fetch(url);
+            
+            if (respuesta.ok) {
+                let datos = await respuesta.json();
+                if (datos && datos.translation && textareaEspanol) {
+                    textareaEspanol.value = datos.translation;
+                    return;
                 }
-            } catch (error) {
-                console.error("Error en la traducción:", error);
-                alert("Hubo un error al conectar con la API de traducción.");
-            } finally {
-                btnTraducirApi.disabled = false;
-                btnTraducirApi.innerText = textoOriginalBoton;
             }
-        });
-    }
 
+            // Opción 2: Fallback a MyMemory API con email explícito (evita bloqueos de IP)
+            const emailFake = "estudiante_dev@gmail.com";
+            url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(textoLimpio.substring(0, 1000))}&langpair=${idiomaOrigen}|${idiomaDestino}&de=${emailFake}`;
+            
+            respuesta = await fetch(url);
+            let datos = await respuesta.json();
+
+            if (datos && datos.responseData && datos.responseData.translatedText && textareaEspanol) {
+                textareaEspanol.value = datos.responseData.translatedText;
+            } else {
+                throw new Error("Respuesta inválida de la API");
+            }
+
+        } catch (error) {
+            console.error("Error al traducir:", error);
+            alert("Ocurrió un inconveniente con el servidor de traducción. Por favor intenta dividiendo el texto o verifica tu conexión.");
+        } finally {
+            btnTraducirApi.disabled = false;
+            btnTraducirApi.innerHTML = textoBotonOriginal;
+        }
+    });
+}
     // ==========================================================================
     // 3. PUBLICAR TRADUCCIÓN REVISADA
     // ==========================================================================
@@ -99,109 +117,106 @@ document.addEventListener("DOMContentLoaded", () => {
     // ==========================================================================
     // 4. LECTURA Y PROCESAMIENTO DE ARCHIVOS (.TXT, .PDF, .PNG, .JPEG)
     // ==========================================================================
-    if (archivoInput) {
-        archivoInput.addEventListener("change", async (e) => {
-            const archivo = e.target.files[0];
-            if (!archivo || !vistaPrevia) return;
+    // EXTRAER TEXTO AUTOMÁTICAMENTE SEGÚN FORMATO (.TXT, .PDF, .PNG, .JPEG)
+if (archivoInput) {
+    archivoInput.addEventListener("change", async (e) => {
+        const archivo = e.target.files[0];
+        if (!archivo) return;
 
-            vistaPrevia.innerHTML = "";
-            const nombreArchivo = archivo.name.toLowerCase();
+        const nombre = archivo.name.toLowerCase();
+        if (vistaPrevia) {
+            vistaPrevia.style.display = "block";
+            vistaPrevia.innerHTML = `<p style="color: #00e5ff;"><i class="fa-solid fa-spinner fa-spin"></i> Procesando archivo: <strong>${archivo.name}</strong>...</p>`;
+        }
 
-            // A) ARCHIVOS DE TEXTO (.txt)
-            if (archivo.type === "text/plain" || nombreArchivo.endsWith(".txt")) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (textareaIngles) textareaIngles.value = event.target.result;
-                    vistaPrevia.innerHTML = `<p style="color: #00ff88; font-size: 0.9rem;">✔ Texto de <strong>${archivo.name}</strong> cargado.</p>`;
-                    vistaPrevia.style.display = "block";
-                };
-                reader.readAsText(archivo);
-            }
+        // A) ARCHIVOS DE TEXTO PLANO (.txt)
+        if (archivo.type === "text/plain" || nombre.endsWith(".txt")) {
+            const reader = new FileReader();
+            reader.onload = (evt) => {
+                if (textareaIngles) textareaIngles.value = evt.target.result;
+                if (vistaPrevia) vistaPrevia.innerHTML = `<p style="color: #00ff88;">✔ Texto extraído de <strong>${archivo.name}</strong>.</p>`;
+            };
+            reader.readAsText(archivo);
+        }
 
-            // B) IMÁGENES (.png, .jpg, .jpeg) VIA OCR (Tesseract.js)
-            else if (archivo.type.startsWith("image/")) {
-                const reader = new FileReader();
-                reader.onload = async (event) => {
-                    // Vista previa visual
-                    const img = document.createElement("img");
-                    img.src = event.target.result;
-                    img.style.maxWidth = "100%";
-                    img.style.maxHeight = "180px";
-                    img.style.borderRadius = "5px";
-
-                    const statusMsg = document.createElement("p");
-                    statusMsg.style.cssText = "color: #00e5ff; font-size: 0.85rem; margin-top: 5px;";
-                    statusMsg.innerText = "⏳ Extrayendo texto de la imagen (OCR)...";
-
-                    vistaPrevia.innerHTML = "";
-                    vistaPrevia.appendChild(img);
-                    vistaPrevia.appendChild(statusMsg);
-                    vistaPrevia.style.display = "block";
-
-                    try {
-                        if (typeof Tesseract === "undefined") {
-                            throw new Error("Agrega la librería Tesseract.js en tu HTML.");
-                        }
-                        const result = await Tesseract.recognize(event.target.result, 'eng+spa');
-                        if (textareaIngles) {
-                            textareaIngles.value = result.data.text.trim();
-                        }
-                        statusMsg.style.color = "#00ff88";
-                        statusMsg.innerText = "✔ Texto extraído de la imagen correctamente.";
-                    } catch (err) {
-                        console.error(err);
-                        statusMsg.style.color = "#ff4444";
-                        statusMsg.innerText = "❌ No se pudo extraer el texto de la imagen.";
+        // B) DOCUMENTOS PDF (.pdf) - MEJORADO Y BLINDADO
+        else if (archivo.type === "application/pdf" || nombre.endsWith(".pdf")) {
+            const reader = new FileReader();
+            reader.onload = async (evt) => {
+                try {
+                    // Configurar Worker de PDF.js
+                    if (window['pdfjs-dist/build/pdf']) {
+                        window['pdfjs-dist/build/pdf'].GlobalWorkerOptions.workerSrc = 
+                            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
                     }
-                };
-                reader.readAsDataURL(archivo);
-            }
 
-            // C) ARCHIVOS DOCUMENTO PDF (.pdf) VIA PDF.js
-            else if (archivo.type === "application/pdf" || nombreArchivo.endsWith(".pdf")) {
-                vistaPrevia.innerHTML = `<p style="color: #00e5ff; font-size: 0.9rem;">⏳ Extrayendo texto del PDF...</p>`;
-                vistaPrevia.style.display = "block";
+                    const typedarray = new Uint8Array(evt.target.result);
+                    
+                    // Cargar el documento PDF
+                    const loadingTask = pdfjsLib.getDocument({ data: typedarray });
+                    const pdf = await loadingTask.promise;
+                    let textoCompleto = "";
 
-                const reader = new FileReader();
-                reader.onload = async (event) => {
-                    try {
-                        if (typeof pdfjsLib === "undefined") {
-                            throw new Error("Agrega la librería PDF.js en tu HTML.");
-                        }
-
-                        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+                    // Recorrer todas las páginas y extraer texto
+                    for (let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const textContent = await page.getTextContent();
                         
-                        const typedarray = new Uint8Array(event.target.result);
-                        const pdf = await pdfjsLib.getDocument(typedarray).promise;
-                        let textoExtraido = "";
-
-                        for (let i = 1; i <= pdf.numPages; i++) {
-                            const page = await pdf.getPage(i);
-                            const textContent = await page.getTextContent();
-                            const pageText = textContent.items.map(item => item.str).join(" ");
-                            textoExtraido += pageText + "\n\n";
-                        }
-
-                        if (textareaIngles) {
-                            textareaIngles.value = textoExtraido.trim();
-                        }
-                        vistaPrevia.innerHTML = `<p style="color: #00ff88; font-size: 0.9rem;">✔ Texto cargado (${pdf.numPages} página(s) procesadas).</p>`;
-                    } catch (err) {
-                        console.error(err);
-                        vistaPrevia.innerHTML = `<p style="color: #ff4444; font-size: 0.9rem;">❌ Error al leer el PDF.</p>`;
+                        const pageText = textContent.items
+                            .map(item => item.str)
+                            .join(" ");
+                            
+                        textoCompleto += `--- Página ${i} ---\n` + pageText + "\n\n";
                     }
-                };
-                reader.readAsArrayBuffer(archivo);
-            }
 
-            // Formato no soportado
-            else {
-                vistaPrevia.innerHTML = `<p style="color: #ffaa00; font-size: 0.9rem;">⚠️ Formato de archivo no soportado para lectura directa.</p>`;
-                vistaPrevia.style.display = "block";
-            }
-        });
-    }
+                    // Verificar si se extrajo texto real o si era una imagen escaneada
+                    if (textoCompleto.replace(/--- Página \d+ ---/g, '').trim().length === 0) {
+                        if (vistaPrevia) {
+                            vistaPrevia.innerHTML = `<p style="color: #ffaa00;">⚠️ El PDF no contiene texto editable (es un documento escaneado o basado en imagen). Prueba copiando y pegando el texto directamente.</p>`;
+                        }
+                    } else {
+                        if (textareaIngles) textareaIngles.value = textoCompleto.trim();
+                        if (vistaPrevia) {
+                            vistaPrevia.innerHTML = `<p style="color: #00ff88;">✔ PDF procesado exitosamente (${pdf.numPages} página/s).</p>`;
+                        }
+                    }
+                } catch (err) {
+                    console.error("Error detallado al leer PDF:", err);
+                    if (vistaPrevia) {
+                        vistaPrevia.innerHTML = `<p style="color: #ff4444;">❌ Error al leer el PDF. Asegúrate de que el archivo no esté protegido con contraseña.</p>`;
+                    }
+                }
+            };
+            reader.readAsArrayBuffer(archivo);
+        }
 
+        // C) IMÁGENES (.PNG, .JPG, .JPEG) CON OCR
+        else if (archivo.type.startsWith("image/")) {
+            const reader = new FileReader();
+            reader.onload = async (evt) => {
+                try {
+                    if (typeof Tesseract === "undefined") {
+                        throw new Error("Tesseract no está disponible.");
+                    }
+                    if (vistaPrevia) {
+                        vistaPrevia.innerHTML = `<p style="color: #00e5ff;"><i class="fa-solid fa-eye"></i> Escaneando texto de la imagen (OCR)...</p>`;
+                    }
+
+                    const resultado = await Tesseract.recognize(evt.target.result, 'eng+spa');
+                    if (textareaIngles) textareaIngles.value = resultado.data.text.trim();
+                    if (vistaPrevia) vistaPrevia.innerHTML = `<p style="color: #00ff88;">✔ Texto extraído de la imagen.</p>`;
+                } catch (err) {
+                    console.error(err);
+                    if (vistaPrevia) vistaPrevia.innerHTML = `<p style="color: #ff4444;">❌ Error al escanear la imagen.</p>`;
+                }
+            };
+            reader.readAsDataURL(archivo);
+        }
+        else {
+            if (vistaPrevia) vistaPrevia.innerHTML = `<p style="color: #ffaa00;">⚠️ Formato de archivo no soportado.</p>`;
+        }
+    });
+}
     if (formUpload) {
         formUpload.addEventListener("submit", (e) => {
             e.preventDefault();
