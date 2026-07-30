@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Cloud Files - Cyberpunk Edition</title>
+
+    <!-- Google Fonts: Cyberpunk & Code Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Vector Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Hoja de Estilos Principal -->
     <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
 
     <header>
-        <h1>My Cloud Files</h1>
+        <h1><i class="fa-solid fa-network-wired"></i> My Cloud Files</h1>
         <nav>
-            <a href="#home" onclick="mostrarSeccion('home')">Home</a>
-            <a href="#about" onclick="mostrarSeccion('about')">About Us</a>
-            <a href="#repository" onclick="mostrarSeccion('repository')">Repository</a>
-            <a href="#recursos" onclick="mostrarSeccion('recursos')">Media Resources</a>
-            <a href="#glosario" onclick="mostrarSeccion('glosario')">Glossary</a>
+            <a href="#home" onclick="mostrarSeccion('home')"><i class="fa-solid fa-terminal"></i> Home</a>
+            <a href="#about" onclick="mostrarSeccion('about')"><i class="fa-solid fa-microchip"></i> About Us</a>
+            <a href="#repository" onclick="mostrarSeccion('repository')"><i class="fa-solid fa-database"></i> Repository</a>
+            <a href="#recursos" onclick="mostrarSeccion('recursos')"><i class="fa-solid fa-photo-film"></i> Media Resources</a>
+            <a href="#glosario" onclick="mostrarSeccion('glosario')"><i class="fa-solid fa-book-bookmark"></i> Glossary</a>
         </nav>
     </header>
 
@@ -67,13 +77,16 @@
             </div>
             <div class="card-info">
                 <h3>Alineación con ODS</h3>
-                <p>ODS 8: Trabajo decente y crecimiento económico
-                Promueve el desarrollo de habilidades digitales que mejoran las oportunidades de empleo. El almacenamiento en la nube y el aprendizaje del inglés fortalecen las competencias laborales.
-                ODS 9: Industria, innovación e infraestructura
-                Impulsa el uso de tecnologías innovadoras. El almacenamiento en la nube facilita el acceso, la gestión y el intercambio de información desde cualquier lugar.
-                ODS 10: Reducción de las desigualdades
-                Favorece el acceso a herramientas educativas y tecnológicas para más personas, permitiendo aprender inglés sin importar la ubicación o los recursos disponibles.
-                ODS 17: Alianzas para lograr los objetivos
+                <p><strong>ODS 8: Trabajo decente y crecimiento económico</strong><br>
+                Promueve el desarrollo de habilidades digitales que mejoran las oportunidades de empleo. El almacenamiento en la nube y el aprendizaje del inglés fortalecen las competencias laborales.</p>
+                
+                <p><strong>ODS 9: Industria, innovación e infraestructura</strong><br>
+                Impulsa el uso de tecnologías innovadoras. El almacenamiento en la nube facilita el acceso, la gestión y el intercambio de información desde cualquier lugar.</p>
+                
+                <p><strong>ODS 10: Reducción de las desigualdades</strong><br>
+                Favorece el acceso a herramientas educativas y tecnológicas para más personas, permitiendo aprender inglés sin importar la ubicación o los recursos disponibles.</p>
+                
+                <p><strong>ODS 17: Alianzas para lograr los objetivos</strong><br>
                 Promueve la colaboración mediante plataformas en la nube, facilitando el trabajo en equipo, el intercambio de materiales y el aprendizaje conjunto del inglés.</p>
             </div>
         </section>
@@ -89,7 +102,7 @@
                 <form id="form-upload">
                     <div style="display: flex; gap: 1rem; flex-wrap: wrap; width: 100%;">
                         <input type="file" id="archivo-input" accept=".txt, .pdf, .png, .jpg, .jpeg" required>
-                        <button type="submit" id="btn-guardar-archivo">📁 Guardar en Repositorio</button>
+                        <button type="submit" id="btn-guardar-archivo"><i class="fa-solid fa-cloud-arrow-up"></i> Guardar en Repositorio</button>
                     </div>
                 </form>
 
@@ -105,10 +118,10 @@
                         <!-- Botones de control para la API -->
                         <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.8rem; flex-wrap: wrap;">
                             <button id="btn-traducir-api" type="button" class="btn-secundario">
-                                🤖 Traducir (EN ➔ ES)
+                                <i class="fa-solid fa-robot"></i> Traducir (EN ➔ ES)
                             </button>
                             <button id="btn-switch-idioma" type="button" class="btn-secundario btn-toggle">
-                                🔄 Cambiar Dirección
+                                <i class="fa-solid fa-right-left"></i> Cambiar Dirección
                             </button>
                         </div>
                     </div>
@@ -125,13 +138,13 @@
                 </div>
 
                 <div class="acciones-editor">
-                    <button id="btn-procesar" type="button">Publicar Traducción</button>
-                    <button id="btn-guardar-imagen" type="button">Exportar como Imagen</button>
+                    <button id="btn-procesar" type="button"><i class="fa-solid fa-share-from-square"></i> Publicar Traducción</button>
+                    <button id="btn-guardar-imagen" type="button"><i class="fa-solid fa-file-image"></i> Exportar como Imagen</button>
                 </div>
 
                 <!-- LISTA DE ARCHIVOS GUARDADOS EN EL REPOSITORIO -->
                 <div class="card-info" style="margin-top: 2.5rem; padding: 1.5rem; background: var(--beige-claro);">
-                    <h4 style="color: var(--verde-bosque); margin-bottom: 1rem;">📂 Archivos Guardados en Repositorio</h4>
+                    <h4 style="color: var(--verde-bosque); margin-bottom: 1rem;"><i class="fa-solid fa-folder-open"></i> Archivos Guardados en Repositorio</h4>
                     <div id="lista-archivos-guardados">
                         <p style="color: var(--texto-secundario); font-size: 0.9rem;">No hay archivos guardados aún.</p>
                     </div>
@@ -294,91 +307,6 @@
                         <li><b>Leak:</b> Filtración no autorizada de información.</li>
                         <li><b>Breach:</b> Brecha de seguridad en la infraestructura.</li>
                         <li><b>Vulnerability:</b> Vulnerabilidad o debilidad de un sistema.</li>
-
-                        <!-- Mantenimiento y Monitoreo -->
-                        <li><b>Monitoring:</b> Monitoreo en tiempo real del estado del sistema.</li>
-                        <li><b>Alert:</b> Alerta o notificación de evento crítico.</li>
-                        <li><b>Threshold:</b> Umbral o límite configurado.</li>
-                        <li><b>Quota:</b> Cuota o límite asignado de almacenamiento.</li>
-                        <li><b>Compression:</b> Compresión de archivos para reducir tamaño.</li>
-                        <li><b>Decompression:</b> Descompresión de archivos comprimidos.</li>
-                        <li><b>Zip / Tar:</b> Formatos populares de empaquetado de archivos.</li>
-                        <li><b>Checksum:</b> Suma de comprobación para verificar la integridad del archivo.</li>
-                        <li><b>Corruption:</b> Corrupción de datos por error de escritura.</li>
-                        <li><b>Recovery:</b> Recuperación de archivos o estados del sistema.</li>
-                        <li><b>Restore:</b> Restauración de una copia de seguridad.</li>
-                        <li><b>Storage Pool:</b> Agrupación lógica de discos de almacenamiento.</li>
-                        <li><b>Volume:</b> Volumen de disco formateado.</li>
-                        <li><b>Partition:</b> Partición lógica de un almacenamiento físico.</li>
-                        <li><b>Format:</b> Formateo e inicialización de unidades.</li>
-
-                        <!-- Interacción de Usuario y Web -->
-                        <li><b>User Interface (UI):</b> Interfaz gráfica de usuario.</li>
-                        <li><b>User Experience (UX):</b> Experiencia del usuario en la navegación.</li>
-                        <li><b>Frontend:</b> Capa visual y de interacción con el usuario.</li>
-                        <li><b>Backend:</b> Capa lógica y servidor detrás de la interfaz.</li>
-                        <li><b>Full Stack:</b> Desarrollo integral de Frontend y Backend.</li>
-                        <li><b>Database Admin (DBA):</b> Administrador de bases de datos.</li>
-                        <li><b>DevOps:</b> Filosofía de integración entre desarrollo y operaciones.</li>
-                        <li><b>System Administrator (SysAdmin):</b> Administrador de sistemas informáticos.</li>
-                        <li><b>User Session:</b> Período de actividad de un usuario.</li>
-                        <li><b>Dashboard:</b> Panel de control con métricas clave.</li>
-                        <li><b>Widget:</b> Componente de interfaz de usuario de función específica.</li>
-                        <li><b>Callback:</b> Función ejecutada al completar una tarea asíncrona.</li>
-                        <li><b>Async / Await:</b> Programación asíncrona no bloqueante.</li>
-                        <li><b>Promise:</b> Objeto que representa un valor que estará disponible a futuro.</li>
-                        <li><b>Event Handler:</b> Manejador o controlador de eventos.</li>
-
-                        <!-- Almacenamiento Avanzado y Estructuras -->
-                        <li><b>SAN (Storage Area Network):</b> Red de área de almacenamiento dedicada.</li>
-                        <li><b>NAS (Network Attached Storage):</b> Almacenamiento conectado a la red local.</li>
-                        <li><b>RAID:</b> Matriz redundante de discos independientes.</li>
-                        <li><b>Object Storage:</b> Almacenamiento de datos estructurados como objetos.</li>
-                        <li><b>Block Storage:</b> Almacenamiento por bloques de alto rendimiento.</li>
-                        <li><b>File Storage:</b> Almacenamiento jerárquico clásico por archivos.</li>
-                        <li><b>I/O Operations:</b> Operaciones de entrada/salida de lectura y escritura.</li>
-                        <li><b>IOPS:</b> Operaciones de entrada/salida por segundo.</li>
-                        <li><b>Read-Only:</b> Modo de solo lectura sin permisos de modificación.</li>
-                        <li><b>Write-Only:</b> Modo de solo escritura.</li>
-                        <li><b>Read/Write (R/W):</b> Permisos completos de lectura y escritura.</li>
-                        <li><b>Ownership:</b> Propiedad o titularidad de un archivo o directorio.</li>
-                        <li><b>File System (FS):</b> Sistema de archivos (NTFS, EXT4, FAT32).</li>
-                        <li><b>Mount Point:</b> Punto de montaje de disco en el sistema.</li>
-                        <li><b>Zero-Knowledge Encryption:</b> Cifrado donde el proveedor no conoce la clave.</li>
-
-                        <!-- Términos de Trabajo Colaborativo y Proyecto -->
-                        <li><b>Sharing:</b> Compartir recursos con otros usuarios.</li>
-                        <li><b>Collaboration:</b> Trabajo colaborativo simultáneo.</li>
-                        <li><b>Version Control:</b> Control de versiones de un archivo.</li>
-                        <li><b>Conflict:</b> Conflicto por ediciones simultáneas no sincronizadas.</li>
-                        <li><b>Lock:</b> Bloqueo de archivo para evitar edición concurrente.</li>
-                        <li><b>Sync Conflict:</b> Conflicto de sincronización.</li>
-                        <li><b>Trash / Recycling Bin:</b> Papelera de reciclaje o elementos eliminados.</li>
-                        <li><b>Retention Policy:</b> Política de retención de archivos eliminados.</li>
-                        <li><b>Purge:</b> Borrado definitivo e irrecuperable de archivos.</li>
-                        <li><b>Quarantine:</b> Aislamiento de archivos infectados por malware.</li>
-                        <li><b>Malware:</b> Software malicioso o dañino.</li>
-                        <li><b>Antivirus / Scanner:</b> Escáner de seguridad y amenazas en archivos.</li>
-                        <li><b>Phishing:</b> Suplantación de identidad para robo de datos.</li>
-                        <li><b>Ransomware:</b> Secuestro de datos mediante cifrado no autorizado.</li>
-                        <li><b>Zero-Day:</b> Vulnerabilidad no descubierta o sin solución inmediata.</li>
-
-                        <!-- Métricas y Facturación en la Nube -->
-                        <li><b>Pay-as-you-go:</b> Modelo de pago por consumo exacto.</li>
-                        <li><b>Subscription:</b> Modelo de suscripción periódica.</li>
-                        <li><b>Tier:</b> Nivel de servicio o capa de rendimiento.</li>
-                        <li><b>Free Tier:</b> Capa de uso gratuito de la nube.</li>
-                        <li><b>Provisioning:</b> Asignación de recursos de almacenamiento/cómputo.</li>
-                        <li><b>Deprovisioning:</b> Liberación de recursos en desuso.</li>
-                        <li><b>SLA (Service Level Agreement):</b> Acuerdo de nivel de servicio garantizado.</li>
-                        <li><b>Benchmark:</b> Prueba de rendimiento comparativa del sistema.</li>
-                        <li><b>Overhead:</b> Sobrecarga de procesamiento o almacenamiento consumido.</li>
-                        <li><b>Workload:</b> Carga de trabajo asignada a un servidor.</li>
-                        <li><b>Cluster:</b> Grupo de servidores interconectados trabajando juntos.</li>
-                        <li><b>Grid Computing:</b> Computación distribuida en red.</li>
-                        <li><b>Edge Computing:</b> Procesamiento de datos cerca de la fuente de origen.</li>
-                        <li><b>Fog Computing:</b> Extensión intermedia entre la nube y los dispositivos.</li>
-                        <li><b>Serverless:</b> Arquitectura sin gestión directa de servidores físicos.</li>
                     </ul>
                 </div>
             </div>
@@ -389,10 +317,17 @@
         <p>Hecho por Santiago Sánchez, Ariel Condo, Jimmy Vedia y Nicolás Miranda</p>
     </footer>
 
-    <!-- Librería para convertir la traducción en imagen -->
+    <!-- LIBRERÍAS EXTERNAS JS -->
+    <!-- 1. PDF.js para renderizar vista previa de documentos PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.worker.min.js';
+    </script>
+
+    <!-- 2. html2canvas para exportar tarjetas a imágenes PNG -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    
-    <!-- Script de navegación entre pestañas (SPA) -->
+
+    <!-- LÓGICA INTERNA DE LA APLICACIÓN (SPA & SCRIPTS) -->
     <script>
         function mostrarSeccion(idSeccion) {
             // Oculta todas las secciones
@@ -423,6 +358,7 @@
         });
     </script>
 
+    <!-- Script Principal de Javascript -->
     <script src="script.js"></script>
     
 </body>

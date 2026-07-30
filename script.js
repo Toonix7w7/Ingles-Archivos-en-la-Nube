@@ -1,139 +1,273 @@
 document.addEventListener("DOMContentLoaded", () => {
     // Referencias a elementos del DOM
+    const btnTraducirApi = document.getElementById("btn-traducir-api");
+    const btnSwitchIdioma = document.getElementById("btn-switch-idioma");
+    const btnProcesar = document.getElementById("btn-procesar");
+    const btnGuardarImagen = document.getElementById("btn-guardar-imagen");
+    const textareaIngles = document.getElementById("texto-ingles");
+    const textareaEspanol = document.getElementById("texto-espanol");
+    const contenedorResultado = document.getElementById("texto-espanol-contenido");
+    const cardExportable = document.getElementById("card-traduccion");
     const formUpload = document.getElementById("form-upload");
     const archivoInput = document.getElementById("archivo-input");
     const vistaPrevia = document.getElementById("vista-previa");
-    const listaArchivos = document.getElementById("lista-archivos-guardados");
+    const listaArchivosGuardados = document.getElementById("lista-archivos-guardados");
+
+    let repositorioArchivos = [];
     
-    const textoIngles = document.getElementById("texto-ingles");
-    const textoEspanol = document.getElementById("texto-espanol");
-    const btnTraducir = document.getElementById("btn-traducir-api");
-    const btnSwitch = document.getElementById("btn-switch-idioma");
-    const btnProcesar = document.getElementById("btn-procesar");
-    const cardTraduccion = document.getElementById("card-traduccion");
-    const textoEspanolContenido = document.getElementById("texto-espanol-contenido");
-    const btnGuardarImagen = document.getElementById("btn-guardar-imagen");
+    // Configuración de idiomas (por defecto: EN -> ES)
+    let idiomaOrigen = "en";
+    let idiomaDestino = "es";
 
-    // Arreglo para almacenar los archivos subidos en memoria
-    let archivosGuardados = [];
+    // ==========================================================================
+    // 1. ALTERNAR DIRECCIÓN DE TRADUCCIÓN (EN -> ES / ES -> EN)
+    // ==========================================================================
+    if (btnSwitchIdioma && btnTraducirApi) {
+        btnSwitchIdioma.addEventListener("click", () => {
+            if (idiomaOrigen === "en") {
+                idiomaOrigen = "es";
+                idiomaDestino = "en";
+                btnTraducirApi.innerText = "🤖 Traducir (ES ➔ EN)";
+            } else {
+                idiomaOrigen = "en";
+                idiomaDestino = "es";
+                btnTraducirApi.innerText = "🤖 Traducir (EN ➔ ES)";
+            }
+        });
+    }
 
-    // --- 1. MANEJO DE SUBIDA DE ARCHIVOS ---
+    // ==========================================================================
+    // 2. TRADUCCIÓN AUTOMÁTICA CON API (MyMemory API Bidireccional)
+    // ==========================================================================
+    if (btnTraducirApi) {
+        btnTraducirApi.addEventListener("click", async () => {
+            const textoOriginal = textareaIngles ? textareaIngles.value.trim() : "";
+
+            if (textoOriginal === "") {
+                alert("Por favor ingresa o carga un texto para traducir.");
+                return;
+            }
+
+            btnTraducirApi.disabled = true;
+            const textoOriginalBoton = btnTraducirApi.innerText;
+            btnTraducirApi.innerText = "⏳ Traduciendo...";
+
+            try {
+                const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(textoOriginal)}&langpair=${idiomaOrigen}|${idiomaDestino}`;
+                const respuesta = await fetch(url);
+                const datos = await respuesta.json();
+
+                if (datos && datos.responseData && datos.responseData.translatedText) {
+                    if (textareaEspanol) {
+                        textareaEspanol.value = datos.responseData.translatedText;
+                    }
+                } else {
+                    alert("No se pudo obtener la traducción de la API. Inténtalo de nuevo.");
+                }
+            } catch (error) {
+                console.error("Error en la traducción:", error);
+                alert("Hubo un error al conectar con la API de traducción.");
+            } finally {
+                btnTraducirApi.disabled = false;
+                btnTraducirApi.innerText = textoOriginalBoton;
+            }
+        });
+    }
+
+    // ==========================================================================
+    // 3. PUBLICAR TRADUCCIÓN REVISADA
+    // ==========================================================================
+    if (btnProcesar) {
+        btnProcesar.addEventListener("click", () => {
+            const textoTraduccion = textareaEspanol ? textareaEspanol.value.trim() : "";
+
+            if (textoTraduccion === "") {
+                alert("Por favor asegúrate de revisar o redactar la traducción antes de publicar.");
+                return;
+            }
+
+            if (contenedorResultado) {
+                contenedorResultado.innerText = textoTraduccion;
+            }
+
+            if (cardExportable) {
+                cardExportable.style.display = "block";
+            }
+        });
+    }
+
+    // ==========================================================================
+    // 4. LECTURA Y PROCESAMIENTO DE ARCHIVOS (.TXT, .PDF, .PNG, .JPEG)
+    // ==========================================================================
+    if (archivoInput) {
+        archivoInput.addEventListener("change", async (e) => {
+            const archivo = e.target.files[0];
+            if (!archivo || !vistaPrevia) return;
+
+            vistaPrevia.innerHTML = "";
+            const nombreArchivo = archivo.name.toLowerCase();
+
+            // A) ARCHIVOS DE TEXTO (.txt)
+            if (archivo.type === "text/plain" || nombreArchivo.endsWith(".txt")) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (textareaIngles) textareaIngles.value = event.target.result;
+                    vistaPrevia.innerHTML = `<p style="color: #00ff88; font-size: 0.9rem;">✔ Texto de <strong>${archivo.name}</strong> cargado.</p>`;
+                    vistaPrevia.style.display = "block";
+                };
+                reader.readAsText(archivo);
+            }
+
+            // B) IMÁGENES (.png, .jpg, .jpeg) VIA OCR (Tesseract.js)
+            else if (archivo.type.startsWith("image/")) {
+                const reader = new FileReader();
+                reader.onload = async (event) => {
+                    // Vista previa visual
+                    const img = document.createElement("img");
+                    img.src = event.target.result;
+                    img.style.maxWidth = "100%";
+                    img.style.maxHeight = "180px";
+                    img.style.borderRadius = "5px";
+
+                    const statusMsg = document.createElement("p");
+                    statusMsg.style.cssText = "color: #00e5ff; font-size: 0.85rem; margin-top: 5px;";
+                    statusMsg.innerText = "⏳ Extrayendo texto de la imagen (OCR)...";
+
+                    vistaPrevia.innerHTML = "";
+                    vistaPrevia.appendChild(img);
+                    vistaPrevia.appendChild(statusMsg);
+                    vistaPrevia.style.display = "block";
+
+                    try {
+                        if (typeof Tesseract === "undefined") {
+                            throw new Error("Agrega la librería Tesseract.js en tu HTML.");
+                        }
+                        const result = await Tesseract.recognize(event.target.result, 'eng+spa');
+                        if (textareaIngles) {
+                            textareaIngles.value = result.data.text.trim();
+                        }
+                        statusMsg.style.color = "#00ff88";
+                        statusMsg.innerText = "✔ Texto extraído de la imagen correctamente.";
+                    } catch (err) {
+                        console.error(err);
+                        statusMsg.style.color = "#ff4444";
+                        statusMsg.innerText = "❌ No se pudo extraer el texto de la imagen.";
+                    }
+                };
+                reader.readAsDataURL(archivo);
+            }
+
+            // C) ARCHIVOS DOCUMENTO PDF (.pdf) VIA PDF.js
+            else if (archivo.type === "application/pdf" || nombreArchivo.endsWith(".pdf")) {
+                vistaPrevia.innerHTML = `<p style="color: #00e5ff; font-size: 0.9rem;">⏳ Extrayendo texto del PDF...</p>`;
+                vistaPrevia.style.display = "block";
+
+                const reader = new FileReader();
+                reader.onload = async (event) => {
+                    try {
+                        if (typeof pdfjsLib === "undefined") {
+                            throw new Error("Agrega la librería PDF.js en tu HTML.");
+                        }
+
+                        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+                        
+                        const typedarray = new Uint8Array(event.target.result);
+                        const pdf = await pdfjsLib.getDocument(typedarray).promise;
+                        let textoExtraido = "";
+
+                        for (let i = 1; i <= pdf.numPages; i++) {
+                            const page = await pdf.getPage(i);
+                            const textContent = await page.getTextContent();
+                            const pageText = textContent.items.map(item => item.str).join(" ");
+                            textoExtraido += pageText + "\n\n";
+                        }
+
+                        if (textareaIngles) {
+                            textareaIngles.value = textoExtraido.trim();
+                        }
+                        vistaPrevia.innerHTML = `<p style="color: #00ff88; font-size: 0.9rem;">✔ Texto cargado (${pdf.numPages} página(s) procesadas).</p>`;
+                    } catch (err) {
+                        console.error(err);
+                        vistaPrevia.innerHTML = `<p style="color: #ff4444; font-size: 0.9rem;">❌ Error al leer el PDF.</p>`;
+                    }
+                };
+                reader.readAsArrayBuffer(archivo);
+            }
+
+            // Formato no soportado
+            else {
+                vistaPrevia.innerHTML = `<p style="color: #ffaa00; font-size: 0.9rem;">⚠️ Formato de archivo no soportado para lectura directa.</p>`;
+                vistaPrevia.style.display = "block";
+            }
+        });
+    }
+
     if (formUpload) {
         formUpload.addEventListener("submit", (e) => {
-            e.preventDefault(); // Evita que la página se recargue
+            e.preventDefault();
+
+            if (!archivoInput || !archivoInput.files[0]) {
+                alert("Selecciona un archivo antes de guardar.");
+                return;
+            }
 
             const archivo = archivoInput.files[0];
 
-            if (!archivo) {
-                alert("Por favor selecciona un archivo primero.");
-                return;
-            }
+            const nuevoArchivo = {
+                nombre: archivo.name,
+                tamaño: (archivo.size / 1024).toFixed(2) + " KB",
+                fecha: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            };
 
-            // Agregar a la lista interna
-            archivosGuardados.push(archivo);
+            repositorioArchivos.push(nuevoArchivo);
             actualizarListaArchivos();
 
-            // Mostrar vista previa según el tipo
-            mostrarVistaPrevia(archivo);
-
-            // Limpiar input
             archivoInput.value = "";
+            if (vistaPrevia) {
+                vistaPrevia.innerHTML = "";
+                vistaPrevia.style.display = "none";
+            }
         });
     }
 
-    // Función para renderizar la lista de archivos guardados
     function actualizarListaArchivos() {
-        if (!listaArchivos) return;
+        if (!listaArchivosGuardados) return;
 
-        if (archivosGuardados.length === 0) {
-            listaArchivos.innerHTML = `<p style="color: var(--texto-secundario, #666); font-size: 0.9rem;">No hay archivos guardados aún.</p>`;
+        if (repositorioArchivos.length === 0) {
+            listaArchivosGuardados.innerHTML = `<p style="color: #888; font-size: 0.9rem;">No hay archivos guardados aún.</p>`;
             return;
         }
 
-        listaArchivos.innerHTML = ""; // Limpiar lista anterior
-        const ul = document.createElement("ul");
-        ul.style.listStyle = "none";
-        ul.style.padding = "0";
-
-        archivosGuardados.forEach((item, index) => {
-            const li = document.createElement("li");
-            li.style.padding = "0.5rem 0";
-            li.style.borderBottom = "1px solid #ccc";
-            li.innerHTML = `📄 <strong>${item.name}</strong> (${(item.size / 1024).toFixed(1)} KB) - <em>${item.type || 'Archivo'}</em>`;
-            ul.appendChild(li);
-        });
-
-        listaArchivos.appendChild(ul);
+        listaArchivosGuardados.innerHTML = repositorioArchivos.map(item => `
+            <div class="item-archivo-guardado" style="padding: 8px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center;">
+                <span>📄 <strong>${item.nombre}</strong> <small>(${item.tamaño})</small></span>
+                <span style="color: #888; font-size: 0.8rem;">${item.fecha}</span>
+            </div>
+        `).join("");
     }
 
-    // Función para generar vista previa en pantalla
-    function mostrarVistaPrevia(archivo) {
-        if (!vistaPrevia) return;
-        
-        vistaPrevia.style.display = "block";
-        vistaPrevia.innerHTML = ""; // Limpiar vista previa previa
-
-        // Si es una imagen
-        if (archivo.type.startsWith("image/")) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                vistaPrevia.innerHTML = `<img src="${e.target.result}" alt="Vista Previa" style="max-width: 100%; max-height: 250px; border-radius: 5px; margin-top: 10px;">`;
-            };
-            reader.readAsDataURL(archivo);
-        } 
-        // Si es un archivo de texto
-        else if (archivo.type === "text/plain") {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const contenido = e.target.result;
-                textoIngles.value = contenido; // Carga el texto en el área de traducción
-                vistaPrevia.innerHTML = `<p style="color: green;">✔ Texto cargado correctamente en el área de edición.</p>`;
-            };
-            reader.readAsText(archivo);
-        } 
-        // Otros formatos (PDF, etc.)
-        else {
-            vistaPrevia.innerHTML = `<p style="color: #333;">✔ Archivo <strong>${archivo.name}</strong> recibido y guardado en el repositorio.</p>`;
-        }
-    }
-
-    // --- 2. TRADUCCIÓN SIMPLE Y PUBLICACIÓN ---
-    if (btnTraducir) {
-        btnTraducir.addEventListener("click", () => {
-            const texto = textoIngles.value.trim();
-            if (!texto) {
-                alert("Escribe o carga algún texto para traducir.");
-                return;
-            }
-            // Simulación/Borrador de traducción o integración
-            textoEspanol.value = "[Traducción/Procesado]: " + texto;
-        });
-    }
-
-    if (btnProcesar) {
-        btnProcesar.addEventListener("click", () => {
-            const resultado = textoEspanol.value.trim();
-            if (resultado) {
-                textoEspanolContenido.innerText = resultado;
-                cardTraduccion.style.display = "block";
-            } else {
-                alert("No hay texto traducido para publicar.");
-            }
-        });
-    }
-
-    // --- 3. EXPORTAR COMO IMAGEN (html2canvas) ---
+    // ==========================================================================
+    // 5. EXPORTAR TARJETA COMO IMAGEN
+    // ==========================================================================
     if (btnGuardarImagen) {
         btnGuardarImagen.addEventListener("click", () => {
-            if (typeof html2canvas === "undefined") {
-                alert("La librería html2canvas no se ha cargado. Revisa tu conexión a internet.");
+            const objetivoExportar = cardExportable || contenedorResultado;
+
+            if (!objetivoExportar) {
+                alert("No hay ningún resultado publicado para exportar.");
                 return;
             }
-            html2canvas(cardTraduccion).then(canvas => {
-                const link = document.createElement("a");
-                link.download = "traduccion-cloud.png";
-                link.href = canvas.toDataURL();
-                link.click();
+
+            if (typeof html2canvas === "undefined") {
+                alert("La librería html2canvas no está disponible en la página.");
+                return;
+            }
+
+            html2canvas(objetivoExportar, { scale: 2 }).then(canvas => {
+                const enlace = document.createElement("a");
+                enlace.download = "traduccion-revisada.png";
+                enlace.href = canvas.toDataURL("image/png");
+                enlace.click();
             });
         });
     }
